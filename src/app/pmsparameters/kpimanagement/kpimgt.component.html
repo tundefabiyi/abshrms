@@ -1,0 +1,83 @@
+
+
+
+<div class="box box-warning">
+    <div class="box-header with-border">
+        <h3 class="box-title">Key Performance Indicator Elements</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <form role="form">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control" [(ngModel)]="kpidescriprion" name="kpidescriprion" placeholder="Enter ...">
+            </div>
+            <!-- textarea -->
+            <div class="form-group">
+                <label>Computation Basis</label>
+                <textarea class="form-control" rows="3" [(ngModel)]="computationbasics" name="computationbasics" placeholder="Enter ..."></textarea>
+            </div>
+            <button type="submit" (click)="savekpi()" class="btn btn-info pull-right fa-save">Sign in</button>
+        </form>
+    </div>
+    <!-- /.box-body -->
+</div>
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">KPI List</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info" [mfData]="data | kpilistFilter : filterQuery"
+                        #mf="mfDataTable" [mfRowsOnPage]="5">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"
+                                    style="width: 181px;">
+                                    <mfDefaultSorter by="description">Description</mfDefaultSorter>
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    style="width: 223px;">
+                                    <mfDefaultSorter by="computationbasics">Computation Basis</mfDefaultSorter>
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    style="width: 223px;"></th>
+
+                            </tr>
+                            <tr>
+                                <th colspan="5">
+                                    Filter by name:
+                                    <input class="form-control" [(ngModel)]="filterQuery" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr role="row" class="odd" *ngFor="let kpiitem of mf.data">
+                                <td class="sorting_1">{{kpiitem.description}}</td>
+                                <td>{{kpiitem.computationbasics}}</td>
+                                <td><button type="button" (click)="selectkpi(kpiitem)" class="btn btn-info btn-flat">...</button></td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>
+

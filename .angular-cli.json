@@ -1,0 +1,84 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "abspms"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css",
+        "bootstrap/css/bootstrap.min.css",
+        "dist/font-awesome-4.6.3/css/font-awesome.min.css",
+        "dist/ionicons-2.0.1/css/ionicons.min.css",
+        "dist/css/AdminLTE.min.css",
+        "dist/css/skins/_all-skins.min.css",
+        "plugins/iCheck/flat/blue.css",
+        "plugins/morris/morris.css",
+        "plugins/datepicker/datepicker3.css",
+        "plugins/daterangepicker/daterangepicker.css",
+        "plugins/datatables/dataTables.bootstrap.css",
+        "plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
+        "../node_modules/datatables.net-bs/css/dataTables.bootstrap.css",
+        "../node_modules/datatables.net-select-bs/css/select.bootstrap.css",
+        "../node_modules/datatables.net-dt/css/jquery.dataTables.css",
+         "../node_modules/datatables.net-buttons/css/buttons.dataTables.min.css"
+      ],
+      "scripts": ["../node_modules/jquery/dist/jquery.js",
+        "../node_modules/datatables.net/js/jquery.dataTables.js",
+         "../node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+          "../node_modules/datatables.net-buttons/js/buttons.html5.js",
+          "../node_modules/datatables.net-buttons/js/buttons.print.js",
+          "../node_modules/datatables.net-buttons/js/buttons.colVis.js",
+          "../node_modules/datatables.net-buttons/js/buttons.flash.js",
+          "../node_modules/datatables.net-buttons/js/pdfmake.min.js"],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}

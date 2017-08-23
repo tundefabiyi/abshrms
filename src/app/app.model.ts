@@ -1,0 +1,1 @@
+export const webapibaseurl = "http://localhost:1167/api/";

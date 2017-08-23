@@ -1,0 +1,118 @@
+<div class="box box-warning">
+    <div class="box-header with-border">
+        <h3 class="box-title">Appraisal Periods</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <form role="form">
+            <!-- text input -->
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control" [(ngModel)]="description" name="description" placeholder="Enter ...">
+            </div>
+           
+           <div class="form-group">
+                <label>Begin Date</label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control"  [(ngModel)]="startdate " name="startdate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                </div>
+                <!-- /.input group -->
+              </div>
+            <div class="form-group">
+                <label>End Date</label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control"  [(ngModel)]="enddate " name="enddate" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                </div>
+                <!-- /.input group -->
+              </div>
+            <div class="form-group">
+               
+                 <div class="checkbox">
+                  <label>
+                    <input [(ngModel)]="allowgoalsetting"  type="checkbox" name="allowgoalsetting"> Allow Goal Setting
+                  </label>
+                </div>
+
+            </div>
+            <div class="form-group">
+               
+                <div class="checkbox">
+                  <label>
+                    <input  [(ngModel)]="allowappraisal"  type="checkbox" name="allowappraisal"> Allow Appraisal
+                  </label>
+                </div>
+
+            </div>
+            <button type="submit" (click)="saveappraisalperiod()" class="btn btn-info pull-right fa-save">Save</button>
+        </form>
+    </div>
+    <!-- /.box-body -->
+</div>
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Appraisal Periods</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered table-striped dataTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"   aria-describedby="example1_info" >
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"
+                                    style="width: 181px;">
+                                   Description
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    style="width: 223px;">
+                                   Start Date
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    style="width: 223px;">
+                                   End Date
+                                </th>
+                                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    style="width: 223px;">
+                                     Allow Goal Setting
+                                    </th>
+                                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    style="width: 223px;">
+                                      Allow Appraisal
+                                    </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    style="width: 223px;"></th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr role="row" class="odd" *ngFor="let item of data">
+                                <td class="sorting_1">{{item.description}}</td>
+                                <td>{{item.startdate | date}}</td>
+                                <td>{{item.enddate | date}}</td>
+                                 <td>{{item.allowgoalsetting}}</td>
+                                  <td>{{item.allowappraisal}}</td>
+                                <td><button type="button" (click)="onappraisalperiodselected(item)" class="btn btn-info btn-flat">...</button></td>
+                            </tr>
+
+                        </tbody>
+                        
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>

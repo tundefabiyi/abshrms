@@ -1,0 +1,121 @@
+<div class="box box-info "> >
+    <div *ngIf="loading" class="box overlay">
+        <i class="fa fa-refresh fa-spin"></i>
+    </div>
+    <div class="box-header with-border">
+        <h3 class="box-title">Competency Item Setup</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form class="form-horizontal">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="competencyType" class="col-sm-2 control-label">Competency Type</label>
+
+                <div class="col-sm-10">
+                    <select [(ngModel)]="selectedCompetencytype" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)" class="form-control select2 select2-hidden-accessible"
+                        style="width: 100%;" tabindex="-1" aria-hidden="true">
+                  <option *ngFor="let competencytypeitem of competencytypelist" [ngValue]="competencytypeitem" >{{competencytypeitem.description}}</option>
+                 
+                </select>
+                    <!--<span class="select2 select2-container select2-container--default select2-container--below"
+                        dir="ltr" style="width: 100%;"><span class="selection">
+                            <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-ku3z-container"><span class="select2-selection__rendered" id="select2-ku3z-container" title="competencytypeitem.description">{{competencytypeitem.description}}</span>
+                    <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                    </span>
+                    </span><span class="dropdown-wrapper" aria-hidden="true"></span></span>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="code" class="col-sm-2 control-label">Code</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="code" [(ngModel)]="code" placeholder="Code">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-sm-2 control-label">Description</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" [(ngModel)]="description" name="description" placeholder="Description">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="percentage" class="col-sm-2 control-label">Percentage%</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" [(ngModel)]="percentage" name="percentage" placeholder="Percentage">
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+
+            <button type="submit" (click)="save()" class="btn btn-info pull-right">Save</button>
+        </div>
+        <!-- /.box-footer -->
+
+    </form>
+</div>
+
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Competency Item List</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info" [mfData]="data"
+                        #mf="mfDataTable" [mfRowsOnPage]="5">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"
+                                    style="width: 181px;">
+                                    <mfDefaultSorter by="description">Code</mfDefaultSorter>
+                                </th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending"
+                                    style="width: 181px;">
+                                    <mfDefaultSorter by="description">Description</mfDefaultSorter>
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    style="width: 223px;">
+                                    <mfDefaultSorter by="computationbasics">Percentage%</mfDefaultSorter>
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                                    style="width: 223px;"></th>
+
+                            </tr>
+                            <tr>
+                                <th colspan="5">
+                                    Filter by name:
+                                    <input class="form-control" [(ngModel)]="filterQuery" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr role="row" class="odd" *ngFor="let item of mf.data">
+                                <td class="sorting_1">{{item.code}}</td>
+                                <td class="sorting_1">{{item.description}}</td>
+                                <td>{{item.percentage}}</td>
+                                <td><button type="button" (click)="oncompetencyitemselected(item)" class="btn btn-info btn-flat">...</button></td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.box-body -->
+</div>
