@@ -6,6 +6,7 @@ import { KPIMgtComponent } from '../pmsparameters/kpimanagement/kpimgt.component
 import { CompetencyItemSetupComponent } from '../pmsparameters/competencymanagement/competencyitemsetup.component';
 import { AppraisalPeriodSetupComponent } from '../pmsparameters/appraisalperiod/appraisalperiodsetup.component';
 import { AppraisalReviewPeriodSetupComponent } from '../pmsparameters/appraisalreviewperiodsetup/appraisalreviewperiodsetup.component';
+import { CompetencyItemDetailSetupComponent } from '../pmsparameters/competencyitemdetailsetup/competencyitemdetailsetup.component';
 
 const appRoutes: Routes = [
 
@@ -16,7 +17,8 @@ const appRoutes: Routes = [
             { path: 'kpi', component: KPIMgtComponent },
             { path: 'competencysetup', component: CompetencyItemSetupComponent },
             { path: 'appraisalperiodsetup', component: AppraisalPeriodSetupComponent },
-            { path: 'appraisalreviewperiodsetup', component: AppraisalReviewPeriodSetupComponent }
+            { path: 'appraisalreviewperiodsetup', component: AppraisalReviewPeriodSetupComponent },
+             { path: 'competencyitemdetailsetup', component: CompetencyItemDetailSetupComponent }
         ], canActivate: [AuthGuard]
     }
 

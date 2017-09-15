@@ -18,8 +18,8 @@ export class AppraisalReviewPeriodService {
             .catch(this.handleError);
     }
     getAppraisalReviewPeriodList(appraisalid: string): Promise<AppraisalReviewPeriod[]> {
-        const url = `${this.Url}/?appraisalperiodid=${appraisalid}`;
-        return this.http.get(this.Url)
+        const url = `${this.Url}?appraisalperiodid=${appraisalid}`;
+        return this.http.get(url)
             .toPromise()
             .then(response => response.json().data as AppraisalReviewPeriod[])
             .catch(this.handleError);

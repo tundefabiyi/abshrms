@@ -18,14 +18,15 @@ import { CompetencyItemSetupComponent } from '../pmsparameters/competencymanagem
 import { AppraisalPeriodSetupComponent } from '../pmsparameters/appraisalperiod/appraisalperiodsetup.component';
 import { AppraisalReviewPeriodSetupComponent } from '../pmsparameters/appraisalreviewperiodsetup/appraisalreviewperiodsetup.component';
  import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
- import { PMSParametersMockWebApiervice } from './pmsparametersmockwebapi.service';
+import { CompetencyItemDetailSetupComponent } from '../pmsparameters/competencyitemdetailsetup/competencyitemdetailsetup.component';
 
 @NgModule({
     imports: [BrowserModule,
         FormsModule,
-        HttpModule, pmsparametersrouting,NavigationModule,AppDirectivesModule,DataTableModule,DataTablesModule, InMemoryWebApiModule.forRoot(PMSParametersMockWebApiervice)],
+        HttpModule, pmsparametersrouting,NavigationModule,AppDirectivesModule,DataTableModule,DataTablesModule
+         ],
     declarations: [PMSParametersRootComponent, PMSParametersHomeComponent,
-    KPIMgtComponent,KPIListFilterPipe,CompetencyItemSetupComponent,AppraisalPeriodSetupComponent, AppraisalReviewPeriodSetupComponent],
+    KPIMgtComponent,KPIListFilterPipe,CompetencyItemSetupComponent,AppraisalPeriodSetupComponent, AppraisalReviewPeriodSetupComponent,CompetencyItemDetailSetupComponent],
     providers: [
         AuthGuard,
         AlertService,

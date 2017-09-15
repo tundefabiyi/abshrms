@@ -16,12 +16,12 @@ import { NavigationModule } from './navigation/navigation.module';
 import { PMSParametersModule } from './pmsparameters/pmsparameters.module';
 import {DataTableModule} from "angular2-datatable";
 
-//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-//import { PMSParametersMockWebApiervice } from './pmsparameters/pmsparametersmockwebapi.service';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { AppInMemoryWebAPIService } from './app.inmemorywebapi.service';
 @NgModule({
     imports: [BrowserModule,
         FormsModule,
-        HttpModule, routing,SelfServiceModule,NavigationModule,PMSParametersModule,DataTableModule],
+        HttpModule, routing,SelfServiceModule,NavigationModule,PMSParametersModule,DataTableModule, InMemoryWebApiModule.forRoot(AppInMemoryWebAPIService,{ passThruUnknownUrl:true })],
     declarations: [AppComponent, AlertComponent,LoginComponent],
     providers: [
         AuthGuard,
