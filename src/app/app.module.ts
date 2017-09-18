@@ -17,7 +17,7 @@ import { PMSParametersModule } from './pmsparameters/pmsparameters.module';
 import {DataTableModule} from "angular2-datatable";
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { AppInMemoryWebAPIService } from './app.inmemorywebapi.service';
+import { AppInMemoryWebAPIService } from './mockdata/app.inmemorywebapi.service';
 @NgModule({
     imports: [BrowserModule,
         FormsModule,

@@ -12,7 +12,8 @@ export class CompetencyItemDetailSetupService {
     constructor(private http: Http) { }
 
     getlist() {
-        return this.http.get(this.Url).map((response: Response) => response.json().data);
+        
+        return this.http.get(this.Url).map((response: Response) =>   response.json().data);
     }
 
     create(competencyitemdetail: any) {
