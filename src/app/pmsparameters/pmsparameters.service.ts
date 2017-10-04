@@ -9,12 +9,13 @@ export class PMSParametersService {
   constructor(private http: Http) {}
 
   getkpilist() {
-    //var url = `${webapibaseurl}pmsparameters/getkpilist?searchtext=`;
-    var url = "api/kpis";
+    var url = `${webapibaseurl}pmsparameters/getkpilist?searchtext=`;
+  //  var url = "api/kpis";
     return this.http.get(url).map((response: Response) => response.json());
   }
 
   getById(id: number) {
+     
     return this.http
       .get("/api/users/" + id, this.jwt())
       .map((response: Response) => response.json());

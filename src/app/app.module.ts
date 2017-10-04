@@ -26,10 +26,10 @@ import { AppInMemoryWebAPIService } from "./mockdata/app.inmemorywebapi.service"
     SelfServiceModule,
     NavigationModule,
     PMSParametersModule,
-    DataTableModule,
-    InMemoryWebApiModule.forRoot(AppInMemoryWebAPIService, {
-      passThruUnknownUrl: true
-    })
+     DataTableModule
+    // InMemoryWebApiModule.forRoot(AppInMemoryWebAPIService, {
+    //   passThruUnknownUrl: true
+    // })
   ],
   declarations: [AppComponent, AlertComponent, LoginComponent],
   exports: [],

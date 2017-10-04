@@ -9,14 +9,14 @@ import { AlertService } from '../../services/index';
 export class KPIMgtComponent implements OnInit {
     kpidescriprion: string;
     computationbasics: string;
-   public data;
+    public data;
     selectedkpi: any = {};
     isinSelectionMode: boolean = false;
     loading = false;
-     filterQuery = "";
-     rowsOnPage = 10;
-     sortBy = "description";
-     sortOrder = "asc";
+    filterQuery = "";
+    rowsOnPage = 10;
+    sortBy = "description";
+    sortOrder = "asc";
     constructor(private pMSParametersService: PMSParametersService,
         private alertService: AlertService) {
 
@@ -26,8 +26,8 @@ export class KPIMgtComponent implements OnInit {
             .subscribe(
             data => {
                 this.loading = false;
-                this.data = data.dto_KPIItemList;
-                
+                this.data = JSON.parse(data.payload);
+
             },
             error => {
 
@@ -38,11 +38,11 @@ export class KPIMgtComponent implements OnInit {
     savekpi() {
         this.loading = true;
         if (this.isinSelectionMode == false) {
-            this.pMSParametersService.createkpi({id:"", description: this.kpidescriprion, computationbasics: this.computationbasics })
+            this.pMSParametersService.createkpi({ id: "", description: this.kpidescriprion, computationbasics: this.computationbasics })
                 .subscribe(
                 data => {
                     this.loading = false;
-                    this.data = data.dto_KPIItemList;
+                    this.data = JSON.parse(data.payload);;
                     this.computationbasics = "";
                     this.kpidescriprion = "";
                 },
@@ -58,10 +58,10 @@ export class KPIMgtComponent implements OnInit {
                 .subscribe(
                 data => {
                     this.loading = false;
-                    this.data = data.dto_KPIItemList;
+                    this.data = JSON.parse(data.payload);;
                     this.selectedkpi = {};
                     this.isinSelectionMode = false;
-                     this.computationbasics = "";
+                    this.computationbasics = "";
                     this.kpidescriprion = "";
                 },
                 error => {
