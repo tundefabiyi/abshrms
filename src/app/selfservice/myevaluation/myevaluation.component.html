@@ -1,0 +1,68 @@
+<div class="box-body table-responsive no-padding">
+  <table class="table table-hover">
+    <tr>
+      <th>KPI</th>
+      <th>Commitments</th>
+      <th>Functional Competencies</th>
+
+
+    </tr>
+    <tr>
+
+      <td>Budget varience </td>
+      <td>Not exceeding 10% of the approved budget</td>
+      <td>
+        <ul>
+          <li>Business Continuety</li>
+          <li>IT Architecture & Standards</li>
+          <li>Application Infrastructure Management</li>
+        </ul>
+
+      </td>
+
+    </tr>
+
+
+  </table>
+</div>
+<div style="margin-left:5px; margin-top:7%;">
+  <h3 style="color:deepskyblue ; margin-left:2px;">Evaluation Form</h3>
+
+  <!-- /.box -->
+
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">Section A-Self assessment
+        <small>(to be completed by appraisee)</small>
+      </h3>
+      <!-- tools box -->
+      <div class="pull-right box-tools">
+        <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+        <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fa fa-times"></i></button>
+      </div>
+      <!-- /. tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body pad">
+      <form>
+        <textarea class="textarea" [(ngModel)]="description" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+          <div class="col-md-12">
+            <label>Submit to supervisor</label>
+            <button type="button" (click)="save()" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- /.box -->
+
+
+
+
+
+
+</div>

@@ -1,0 +1,77 @@
+<app-profile [userdetails]="userdetails" (goalsettingevent)="setMyGoals()" (appraisalevent)="handleAppraisal()" (evaluationevent)="handleEvaluation()"></app-profile>
+
+
+<!--<div class="box box-widget widget-user">
+    <div class="row subordinate_row" *ngFor="let item of userdetails.subordinates">
+        <div class="col-md-6">{{item.fullname}}</div>
+        <div class="col-md-4 col-md-offset-2">
+            <button class="btn btn-primary">View Details</button>
+        </div>
+    </div>
+</div>-->
+
+<table id="example1" class="table table-bordered table-striped dataTable" datatable aria-describedby="example1_info">
+    <thead>
+        <tr role="row">
+
+            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">
+                Subordinates
+            </th>
+
+            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">
+                &nbsp;
+            </th>
+
+
+
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr role="row" class="odd" *ngFor="let item of userdetails.subordinates">
+            <td>{{item.fullname}}</td>
+            <td>
+                <button class="btn btn-primary" (click)="viewSubordinatePerformance(item)">View Details</button>
+            </td>
+        </tr>
+
+    </tbody>
+
+</table>
+
+<div class="row">&nbsp;</div>
+
+<h4>Appraisal Summary</h4>
+<!-- Custom Tabs -->
+<div>
+    <table class="table table-hover" style="background-color:#ffffff;">
+
+        <tr style="background-color:lightgray">
+            <th>Performance Dimension</th>
+            <th>Weight</th>
+            <th>Score</th>
+            <th>Weighted Score</th>
+
+
+
+        </tr>
+        <tr style=" border:1px;">
+
+            <th>Result</th>
+
+            <td>60%</td>
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <th>Competency</th>
+            <td>40%</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+
+
+    <div>

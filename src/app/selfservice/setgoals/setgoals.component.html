@@ -1,0 +1,89 @@
+<div style="margin:20px; padding:10px;">
+  <div class="col-xs-6">
+
+
+
+
+    <label>Competency Category</label>
+    <select [(ngModel)]="selectedCompetencyType" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)" class="form-control select2 select2-hidden-accessible"
+      style="width: 100%;" tabindex="-1" aria-hidden="true">
+    <option *ngFor="let competencytypeitem of competencytypes" [ngValue]="competencytypeitem" >{{competencytypeitem.description}}</option>
+   
+  </select>
+    <label>Competency Items</label>
+    <select [(ngModel)]="selectedCompetencyItem" name="competencytype" (ngModelChange)="onCompetencyItemSelected($event)" class="form-control select2 select2-hidden-accessible"
+      style="width: 100%;" tabindex="-1" aria-hidden="true">
+  <option *ngFor="let competencyitem of defaultTemplate.lineitems" [ngValue]="competencyitem" >{{competencyitem.competencyitem}}</option>
+  
+  </select>
+
+    <label>Action Plan</label>
+
+    <textarea class="form-control" rows="3" [(ngModel)]="myActionPlan" placeholder="Input Action Plan Here"> </textarea>
+    <button style="margin-top:35px; " type="submit" (click)="save()" class="btn btn-info pull-right fa-save">Save</button>
+
+  </div>
+
+
+  <div class="col-xs-6">
+
+
+    <label>Competency Item</label>
+    <input type="text" class="form-control" placeholder="" disabled value="{{selectedCompetencyItem.competencyitem}}">
+    <label>Proficiency Level</label>
+    <input type="text" class="form-control" placeholder="" disabled value="{{selectedCompetencyItem.proficiencylevel}}">
+    <label>Competency Item Detail</label>
+    <textarea class="form-control" rows="3" placeholder="Competency Item Detail Display" disabled></textarea>
+
+
+
+  </div>
+</div>
+
+
+<div style="padding-top:10%; ">
+  <table class="table table-hover" style="margin-top:20px; margin-top:20%;">
+
+
+
+    <tr>
+      <!--<th>Competency Category</th>-->
+      <th>Competency Item</th>
+      <th>Proficiency Level</th>
+      <th>Competency Item Detail</th>
+      <th>Action Plan</th>
+      <th>&nbsp;</th>
+
+
+
+    </tr>
+    <tr style=" border:1px; background-color:#ffffff;" *ngFor="let item of actionplans">
+
+      <!--<td>Shared</td>-->
+
+      <td>{{getCompetencyItem(item.competencytemplatelineitemid).competencyitem}}</td>
+      <td>{{getCompetencyItem(item.competencytemplatelineitemid).proficiencylevel}}</td>
+      <td>
+        <ul>
+          <li *ngFor="let detail of getCompetencyItem(item.competencytemplatelineitemid).competencyitemdetails">{{detail.description}}</li>
+
+        </ul>
+      </td>
+
+      <td>
+        {{item.actionplandescription}}
+      </td>
+
+      <td> <button type="submit" (click)="edit(item)" class="btn btn-info pull-right fa-save">Edit</button></td>
+    </tr>
+    <tr>
+
+    </tr>
+  </table>
+
+  <div class="row">
+    <div class="col-md-4 col-md-offset-8">
+      <button type="submit" (click)="saveAll()" class="btn btn-info pull-right fa-save" *ngIf="actionplans.length > 0">Save Goals</button>
+    </div>
+  </div>
+</div>

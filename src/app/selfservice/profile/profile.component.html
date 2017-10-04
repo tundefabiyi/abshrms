@@ -1,0 +1,109 @@
+<div class="col-lg-6">
+  <!-- Widget: user widget style 1 -->
+  <div class="box box-widget widget-user">
+    <!-- Add the bg color to the header using any of the bg-* classes -->
+    <div class="widget-user-header bg-aqua-active">
+      <h3 class="widget-user-username">{{userdetails.fullname}}</h3>
+      <h5 class="widget-user-desc">{{userdetails.jobposition}}</h5>
+    </div>
+    <div class="widget-user-image">
+      <img class="img-circle" [src]="userdetails.photo" alt="User Avatar">
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="box-footer">
+      <div class="row">
+        <div class="col-sm-4 border-right">
+          <div class="description-block">
+            <h5 class="description-header">I.D</h5>
+            <span class="description-text">{{userdetails.staffid}}</span>
+          </div>
+          <!-- /.description-block -->
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 border-right">
+          <div class="description-block">
+            <h5 class="description-header">Role</h5>
+            <span class="description-text">{{userdetails.jobfunction}}</span>
+          </div>
+          <!-- /.description-block -->
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4">
+          <div class="description-block">
+            <h6 class="description-header">Subordinates</h6>
+
+            <span class="description-text">{{userdetails.subordinates.length}}</span>
+          </div>
+          <!-- /.description-block -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </div>
+  <!-- /.widget-user -->
+</div>
+
+
+
+<div class="row">
+  <div class="col-lg-3 ">
+    <!-- small box -->
+    <div class="small-box bg-aqua">
+      <div class="inner">
+        <!--<h3>59 %</h3>-->
+
+        <p>Goal Setting</p>
+      </div>
+      <div class="icon">
+        <i class=" fa fa-list"></i>
+      </div>
+      <a (click)="setGoals()" class="small-box-footer">Set Goals <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+
+  <div class="col-lg-3 ">
+    <!-- small box -->
+    <div class="small-box bg-green">
+      <div class="inner">
+        <!--<h3>59 %</h3>-->
+
+        <p>Appraisal</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-bag"></i>
+      </div>
+      <a (click)="triggerAppraisal()" class="small-box-footer">Manage Appraisal <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 ">
+    <!-- small box -->
+    <div class="small-box bg-yellow">
+      <div class="inner">
+        <!--<h3>59 %</h3>-->
+
+        <p>Evaluation</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-bag"></i>
+      </div>
+      <a (click)="evaluation()" class="small-box-footer">Submit Evaluation <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <div class="col-lg-3 ">
+    <!-- small box -->
+    <div class="small-box bg-red">
+      <div class="inner">
+        <!--<h3>59 %</h3>-->
+
+        <p>Assessment Score</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-bag"></i>
+      </div>
+      <a routerLink="/resultform" routerLinkActive="active" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+</div>
+<!-- /.row -->

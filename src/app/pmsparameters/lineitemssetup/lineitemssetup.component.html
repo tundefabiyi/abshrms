@@ -1,0 +1,95 @@
+<div class="box box-warning">
+  <div class="box-header with-border">
+    <h3 class="box-title">Competency Line Item</h3>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <form role="form">
+      <!-- text input -->
+
+
+      <label>Competency Type</label>
+      <div class="box box-solid box-default" style="height:28px; padding:5px;">{{competencyTemplate.competencytype}}</div>
+      <label>Status</label>
+      <div class="box box-solid box-default" style="height:28px; padding:5px;">{{competencyTemplate.status}}</div>
+      <div class="form-group">
+
+        <label>Competency Item</label>
+
+        <select [(ngModel)]="selectedCompetencyitem" name="competencyitem" (ngModelChange)="onCompetencyitemSelected($event)" class="form-control select2 select2-hidden-accessible"
+          style="width: 100%;" tabindex="-1" aria-hidden="true">
+            <option *ngFor="let competencyitem of competencyitems" [ngValue]="competencyitem" >{{competencyitem.description}}</option>
+           
+        </select>
+
+        <label>Proficiency Level</label>
+
+        <select [(ngModel)]="selectedProficiencytype" name="proficiencytype" (ngModelChange)="onProficiencytypeSelected($event)"
+          class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+          <option *ngFor="let proficiencytype of proficiencytypes" [ngValue]="proficiencytype" >{{proficiencytype.description}}</option>
+         
+        </select>
+
+
+      </div>
+      <!-- textarea -->
+
+      <button type="submit" (click)="save()" class="btn btn-info pull-right fa-save">Save</button>
+    </form>
+  </div>
+  <!-- /.box-body -->
+</div>
+
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">Competency Item Detail List</h3>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="example1" class="table table-bordered table-striped dataTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+            aria-describedby="example1_info">
+            <thead>
+              <tr role="row">
+
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                  style="width: 223px;">
+                  Competency Item
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                  style="width: 223px;">
+                  Proficiency Level
+                </th>
+
+
+
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                  style="width: 223px;">Detail</th>
+
+
+              </tr>
+
+            </thead>
+            <tbody>
+              <tr role="row" class="odd" *ngFor="let item of competencyTemplate.lineitems">
+                <td>{{item.competencyitem }}</td>
+                <td>{{item.proficiencylevel }}</td>
+
+                <td><button type="button" (click)="edit(item)" class="btn btn-info btn-flat">Edit</button></td>
+                <td><button type="button" (click)="detail(item)" class="btn btn-info btn-flat">Detail</button></td>
+                <td><button type="button" (click)="manage(item)" class="btn btn-info btn-flat">Manage</button></td>
+              </tr>
+
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- /.box-body -->
+</div>

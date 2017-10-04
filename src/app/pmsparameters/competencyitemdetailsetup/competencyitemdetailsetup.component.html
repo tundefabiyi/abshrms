@@ -1,6 +1,3 @@
-
-
-
 <div class="box box-warning">
     <div class="box-header with-border">
         <h3 class="box-title">Competency Item Detail Setup</h3>
@@ -11,7 +8,7 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Description</label>
-                <textarea  class="form-control" [(ngModel)]="detaildescription" name="detaildescription" placeholder="Enter ..."></textarea>
+                <textarea class="form-control" [(ngModel)]="detaildescription" name="detaildescription" placeholder="Enter ..."></textarea>
             </div>
             <!-- textarea -->
             <div class="form-group">
@@ -34,20 +31,21 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <table id="example1" class="table table-bordered table-striped dataTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"   aria-describedby="example1_info" >
+                    <table id="example1" class="table table-bordered table-striped dataTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                        aria-describedby="example1_info">
                         <thead>
                             <tr role="row">
-                                
+
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
                                     style="width: 223px;">
-                                   Description
+                                    Description
                                 </th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
                                     style="width: 223px;">
-                                   Order Number
+                                    Order Number
                                 </th>
-                                 
-                                      
+
+
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
                                     style="width: 223px;"></th>
 
@@ -58,12 +56,12 @@
                             <tr role="row" class="odd" *ngFor="let item of data">
                                 <td>{{item.description }}</td>
                                 <td>{{item.ordernos }}</td>
-                                
+
                                 <td><button type="button" (click)="onselectcompetencydetailitem(item)" class="btn btn-info btn-flat">...</button></td>
                             </tr>
 
                         </tbody>
-                        
+
                     </table>
                 </div>
             </div>
@@ -72,4 +70,3 @@
     </div>
     <!-- /.box-body -->
 </div>
-

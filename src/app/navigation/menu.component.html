@@ -1,17 +1,28 @@
-  <ul class="sidebar-menu">
-          <li class="header">MAIN NAVIGATION</li>
-          <li class="active treeview" *ngFor="let menugrp of menugrouplist">
-            <a href="#">
+<ul class="sidebar-menu">
+  <li class="header">MAIN NAVIGATION</li>
+  <li class="active treeview">
+    <a href="#">
+            <i class="fa fa-home"></i> <span>Self Service</span>
+            
+          </a>
+    <ul class="treeview-menu">
+      <li><a routerLink="/selfservice/home"> Home</a></li>
+
+    </ul>
+  </li>
+
+  <li class="active treeview" *ngFor="let menugrp of menugrouplist">
+    <a href="#">
             <i class="menugrp.groupliclass"></i> <span>{{menugrp.description}}</span>
             <span class="menugrp.groupspanclass">
               <i class="menugrp.groupiclass"></i>
             </span>
           </a>
-            <ul class="treeview-menu">
-              <li *ngFor="let menuitem of menugrp.itemlist" ><a [routerLink]="menuitem.href"><i class="menuitem.itemclass"></i> {{menuitem.description}}</a></li>
-             
-            </ul>
-          </li>     
+    <ul class="treeview-menu">
+      <li *ngFor="let menuitem of menugrp.itemlist"><a [routerLink]="menuitem.href"><i class="menuitem.itemclass"></i> {{menuitem.description}}</a></li>
+
+    </ul>
+  </li>
 
 
-        </ul>
+</ul>
