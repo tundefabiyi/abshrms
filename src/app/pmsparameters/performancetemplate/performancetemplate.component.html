@@ -60,10 +60,10 @@
     </tr>
     <tr style=" border:1px;" *ngFor="let item of performancetemplates">
 
-      <td>{{getPerformanceCategory(item).description}}</td>
+      <td>{{item.performancetype}}</td>
 
-      <td>{{item.templatedescription}}</td>
-      <td>{{item.documentstatus}}</td>
+      <td>{{item.description}}</td>
+      <td>{{item.status}}</td>
 
 
       <td> <button type="button" (click)="manage(item)" class="btn btn-info pull-right fa-save">Manage</button></td>

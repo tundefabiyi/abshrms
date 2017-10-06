@@ -61,13 +61,13 @@
 
 
       <label>Performance Type</label>
-      <input type="text" value="{{getPerformanceCategory().description}}" class="form-control" placeholder="" disabled>
+      <input type="text" value="{{template.performancetype}}" class="form-control" placeholder="" disabled>
       <!-- /.info-box-content -->
       <label>Description</label>
-      <input type="text" value="{{template.templatedescription}}" class="form-control" placeholder="" disabled>
+      <input type="text" value="{{template.description}}" class="form-control" placeholder="" disabled>
       <!-- /.info-box-content -->
       <label>Status</label>
-      <input type="text" value="{{template.documentstatus}}" class="form-control" placeholder="" disabled>
+      <input type="text" value="{{template.status}}" class="form-control" placeholder="" disabled>
       <!-- /.info-box-content -->
       <!-- /.info-box -->
 
@@ -102,18 +102,18 @@
       <th>Status</th>-->
       <th>KPI</th>
       <th>Weight</th>
-      <th>&nbsp;</th>
+      <!-- <th>&nbsp;</th> -->
     </tr>
     <tr style=" border:1px;" *ngFor="let item of template.lineitems">
 
       <!--<td>{{getPerformanceCategory().description}}</td>
       <td>{{template.templatedescription}}</td>
       <td>{{template.documentstatus}}</td>-->
-      <td>{{getKPI(item.kpiid).description}}</td>
+      <td>{{item.kpi}}</td>
       <td>{{item.weight}}</td>
 
 
-      <td> <button type="submit" (click)="delete(item)" class="btn btn-info pull-right fa-save">Delete</button></td>
+      <!-- <td> <button type="submit" (click)="delete(item)" class="btn btn-info pull-right fa-save">Delete</button></td> -->
     </tr>
     <tr>
 

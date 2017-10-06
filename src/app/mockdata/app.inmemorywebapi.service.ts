@@ -1,3 +1,5 @@
+import { performancetemplates } from "./pmsparameters/performancetemplate.model";
+import { competencytemplate } from "./pmsparameters/competencytemplate.model";
 import {
   InMemoryDbService,
   RequestInfo,
@@ -454,9 +456,11 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
     const url = reqInfo.url;
     if (url === "api/selfservice/authenticateLogin") {
       return this.getAuthenticateResponse(reqInfo);
-    } /*else if (url === "api/competencyitems") {
-      return this.returnCreatedCompetencyItem(reqInfo);
-    }*/
+    } else if (url === "api/competencytemplates") {
+      return this.getCompetencyTemplates(reqInfo);
+    } else if (url === "api/performancemeasurementtemplates") {
+      return this.getPerformanceTemplates(reqInfo);
+    }
 
     return undefined; // let the default GET handle all others
   }
@@ -476,27 +480,95 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
       return this.getCompetencyItems(reqInfo);
     } else if (url.indexOf("competencytemplates?competencytype=") != -1) {
       return this.getCompetencyTemplates(reqInfo);
-    } else if (url === "api/kpis" || url === "api/performancecategories") {
-      return this.returnResponseAsItemlist(reqInfo);
+    } else if (
+      url === "api/kpis" ||
+      url === "api/performancecategories" ||
+      url === "api/proficiencytypes" ||
+      url === "api/competencyitemdetails"
+    ) {
+      return this.returnCollectionAsPayload(reqInfo);
+    } else if (
+      url.indexOf("performancemeasurementtemplates?performancetypeid=") != -1
+    ) {
+      return this.getPerformanceTemplates(reqInfo);
+    } else if (url.indexOf("employees?supervisorstaffid=") != -1) {
+      return this.returnCollectionAsPayload(reqInfo);
+    } else if (url.indexOf("gettemplate?competencytype=") != -1) {
+      return this.returnCompetencyTemplate(reqInfo);
+    } else if (
+      url.indexOf("getcurrentperformancetemplate?performancetypeid=") != -1
+    ) {
+      return this.returnPerformanceTemplate(reqInfo);
     }
-
     return undefined; // let the default GET handle all others
   }
 
   put(reqInfo: RequestInfo) {
     const url = reqInfo.url;
-    /*
-    //Get the [[Entries]] property of the query string (Returns an iterator/generator)
-    const queryIterator = reqInfo.query.entries();
-    //Get the first entry (the first query paramemter)
-    const competencytypeid = queryIterator.next().value[0][0];
-    */
+
     if (url === "api/competencytemplates") {
       //Return the new updated list
-      return this.handleCompetencyTemplateUpdate(reqInfo);
+      return this.getCompetencyTemplates(reqInfo);
+    } else if (
+      url === "api/updatecompetencytemplate" ||
+      url === "api/goalsettingdetailactionplan"
+    ) {
+      //Return the new updated list
+      return this.returnCompetencyTemplate(reqInfo);
+    } else if (url === "api/performancemeasurementtemplates") {
+      //Return the new updated list
+      return this.returnPerformanceTemplate(reqInfo);
     }
     return undefined; // let the default PUT handle all others
   } //end put
+
+  private returnCollectionAsPayload(reqInfo: RequestInfo) {
+    return reqInfo.utils.createResponse$(() => {
+      const options: ResponseOptions = {
+        body: {
+          payload: JSON.stringify(reqInfo.collection)
+        },
+        status: STATUS.OK
+      };
+      return this.finishOptions(options, reqInfo);
+    });
+  } //returnCollectionAsPayload
+
+  private getPerformanceTemplates(reqInfo: RequestInfo) {
+    return reqInfo.utils.createResponse$(() => {
+      const options: ResponseOptions = {
+        body: {
+          payload: JSON.stringify(performancetemplates)
+        },
+        status: STATUS.OK
+      };
+      return this.finishOptions(options, reqInfo);
+    });
+  } //getPerformanceTemplates
+
+  private returnCompetencyTemplate(reqInfo: RequestInfo) {
+    return reqInfo.utils.createResponse$(() => {
+      const options: ResponseOptions = {
+        body: {
+          payload: JSON.stringify(competencytemplate)
+        },
+        status: STATUS.OK
+      };
+      return this.finishOptions(options, reqInfo);
+    });
+  } //returnCompetencyTemplate
+
+  private returnPerformanceTemplate(reqInfo: RequestInfo) {
+    return reqInfo.utils.createResponse$(() => {
+      const options: ResponseOptions = {
+        body: {
+          payload: JSON.stringify(performancetemplates[0])
+        },
+        status: STATUS.OK
+      };
+      return this.finishOptions(options, reqInfo);
+    });
+  } //returnPerformanceTemplate
 
   private getAuthenticateResponse(reqInfo: RequestInfo) {
     return reqInfo.utils.createResponse$(() => {
@@ -516,7 +588,7 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
     return reqInfo.utils.createResponse$(() => {
       const options: ResponseOptions = {
         body: {
-          itemlist: reqInfo.collection
+          payload: JSON.stringify(reqInfo.collection)
         },
         status: STATUS.OK
       };
@@ -525,22 +597,10 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
   } //getCompetencyTypeItems
 
   private getCompetencyItems(reqInfo) {
-    /*//Get the [[Entries]] property of the query string (Returns an iterator/generator)
-    const queryIterator = reqInfo.query.entries();
-    //Get the first entry (the first query paramemter)
-    const competencytypeid = queryIterator.next().value[0];
-    */
-
-    const competencytypeid = reqInfo.url.split("=")[1];
-
-    const returnCollection = reqInfo.collection.filter(function(item) {
-      return item.competencytypeid == competencytypeid;
-    });
-
     return reqInfo.utils.createResponse$(() => {
       const options: ResponseOptions = {
         body: {
-          itemlist: returnCollection
+          payload: JSON.stringify(reqInfo.collection)
         },
         status: STATUS.OK
       };
@@ -549,16 +609,20 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
   } //getCompetencyItems
 
   private getCompetencyTemplates(reqInfo) {
-    const competencytype = reqInfo.url.split("=")[1];
+    /*const competencytype = reqInfo.url.split("=")[1];
 
     const returnCollection = reqInfo.collection.filter(function(item) {
       return item.competencytype == competencytype;
-    });
+    });*/
+
+    var competencyTemplates = [];
+
+    competencyTemplates.push(competencytemplate);
 
     return reqInfo.utils.createResponse$(() => {
       const options: ResponseOptions = {
         body: {
-          itemlist: returnCollection
+          payload: JSON.stringify(competencyTemplates)
         },
         status: STATUS.OK
       };

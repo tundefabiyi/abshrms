@@ -9,20 +9,20 @@ export class PMSParametersService {
   constructor(private http: Http) {}
 
   getkpilist() {
-    var url = `${webapibaseurl}pmsparameters/getkpilist?searchtext=`;
-  //  var url = "api/kpis";
+    //var url = `${webapibaseurl}pmsparameters/getkpilist?searchtext=`;
+    var url = "api/kpis";
     return this.http.get(url).map((response: Response) => response.json());
   }
 
   getById(id: number) {
-     
     return this.http
       .get("/api/users/" + id, this.jwt())
       .map((response: Response) => response.json());
   }
 
   createkpi(kpi: any) {
-    var url = `${webapibaseurl}pmsparameters/createkpi`;
+    //var url = `${webapibaseurl}pmsparameters/createkpi`;
+    var url = "api/kpis";
     return this.http
       .post(url, kpi)
       .map((response: Response) => response.json());
@@ -62,9 +62,9 @@ export class PMSParametersService {
     //var url = `${webapibaseurl}pmsparameters/fetchCompetencyTypeList`;
     var url = "api/competencyitemdetails";
     return this.http.get(url).map((response: Response) => {
-      console.log(response.json().data);
+      console.log(response.json());
 
-      return response.json().data;
+      return response.json();
     });
   } //fetchCompetencyItemDetails
 
@@ -110,7 +110,7 @@ export class PMSParametersService {
 
   getProficiencyTypes() {
     var url = "api/proficiencytypes";
-    return this.http.get(url).map((response: Response) => response.json().data);
+    return this.http.get(url).map((response: Response) => response.json());
   }
 
   private handleError(error: any): Promise<any> {

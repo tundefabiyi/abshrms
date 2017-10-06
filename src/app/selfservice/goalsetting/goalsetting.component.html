@@ -10,20 +10,12 @@
    
   </select>
 
-  <div *ngIf="performancetemplates.length > 0">
-    <label>Performance Template</label>
-    <select [(ngModel)]="selectedPerformanceTemplate" name="performancetemplate" (ngModelChange)="onPerformanceTemplateSelected($event)"
-      class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-      <option *ngFor="let item of performancetemplates" [ngValue]="item" >{{item.templatedescription}}</option>
-     
-    </select>
-  </div>
 
   <div *ngIf="selectedPerformanceTemplate">
     <label>KPI</label>
     <select [(ngModel)]="selectedLineItem" name="lineitem" (ngModelChange)="onKpiSelected($event)" class="form-control select2 select2-hidden-accessible"
       style="width: 100%;" tabindex="-1" aria-hidden="true">
-    <option *ngFor="let lineitem of selectedPerformanceTemplate.lineitems" [ngValue]="lineitem" >{{getKPI(lineitem.kpiid).description}}</option>
+    <option *ngFor="let lineitem of selectedPerformanceTemplate.lineitems" [ngValue]="lineitem" >{{lineitem.kpi}}</option>
     
     </select>
   </div>
@@ -42,7 +34,7 @@
 
 
   <label>Computational Basis</label>
-  <textarea class="form-control" placeholder="" value="{{getKPI(selectedLineItem.kpiid).computationbasis}}" disabled></textarea>
+  <textarea class="form-control" placeholder="" value="{{selectedLineItem.computationbasis}}" disabled></textarea>
   <label>Weight</label>
   <input type="text" class="form-control" placeholder="" value="{{selectedLineItem.weight}}" disabled>
   <button style="margin-top:35px;" type="submit" (click)="save()" class="btn btn-info pull-right fa-save">Save</button>
@@ -63,14 +55,14 @@
 
 
   </tr>
-  <tr style=" border:1px;" *ngFor="let item of goalsset">
+  <tr style=" border:1px;" *ngFor="let item of selectedPerformanceTemplate.lineitems">
 
     <td>{{selectedPerformanceCategory.description}}</td>
 
-    <td>{{getGoalDetails(item).kpi}}</td>
-    <td>{{getGoalDetails(item).computationbasis}}</td>
-    <td>{{getGoalDetails(item).weight}}</td>
-    <td>{{getGoalDetails(item).percentagecommitment}}</td>
+    <td>{{item.kpi}}</td>
+    <td>{{item.computationbasis}}</td>
+    <td>{{item.weight}}</td>
+    <td>{{item.commitment}}</td>
 
     <td> <button type="submit" class="btn btn-info pull-right fa-save">Detail</button></td>
   </tr>

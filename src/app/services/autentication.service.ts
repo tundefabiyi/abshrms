@@ -8,8 +8,8 @@ export class AuthenticationService {
   constructor(private http: Http) {}
 
   login(username: string, password: string) {
-      var url = `${webapibaseurl}selfservice/authenticateLogin`;
-   // var url = "api/selfservice/authenticateLogin";
+    var url = `${webapibaseurl}selfservice/authenticateLogin`;
+    // var url = "api/selfservice/authenticateLogin";
 
     return this.http
       .post(url, { userid: username, password: password })
@@ -32,7 +32,7 @@ export class AuthenticationService {
 
     return this.http
       .get(url + `?supervisorstaffid=${staffid}`)
-      .map(response => response.json().data);
+      .map(response => response.json());
   } //getsubordinates
 
   logout() {

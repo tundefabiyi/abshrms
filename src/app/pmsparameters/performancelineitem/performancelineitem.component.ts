@@ -27,7 +27,7 @@ export class PerformancelineitemComponent implements OnInit {
     //Load Kpis
     this.pMSParametersService.getkpilist().subscribe(
       data => {
-        this.kpis = data.itemlist;
+        this.kpis = JSON.parse(data.payload);
         console.log(this.kpis);
         this.loading = false;
       },
@@ -57,33 +57,17 @@ export class PerformancelineitemComponent implements OnInit {
       weight: this.weight
     };
 
-    //Check if this item already exists
-    var duplicates = _.find(this.template.lineitems, {
-      performancemeasurementtemplateid: this.template.id,
-      kpiid: this.selectedKpi.id
-    });
-
-    if (!duplicates) {
-      const templateBeforeEdit = Object.assign({}, this.template);
-      //Push in the new item
-      this.template.lineitems.push(lineItemCreated);
-      //Update template
-      this.performanceservice.updateTemplate(this.template).subscribe(
-        data => {
-          //Get the updated list
-          console.log(data);
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-
-          //Remove the Pushed Line Item
-          this.template = templateBeforeEdit;
-        }
-      );
-    } else {
-      this.alertService.error("Item Already Exists");
-    }
+    //Update template
+    this.performanceservice.updateTemplate(lineItemCreated).subscribe(
+      data => {
+        //Get the updated template
+        this.template = JSON.parse(data.payload);
+      },
+      error => {
+        this.alertService.error(error);
+        this.loading = false;
+      }
+    );
   } //save
 
   getKPI(kpiid) {

@@ -36,7 +36,9 @@ export class SetgoalsComponent implements OnInit {
     this.pMSParametersService.fetchCompetencyTypeList().subscribe(
       data => {
         this.loading = false;
-        this.competencytypes = data.itemlist;
+        this.competencytypes = JSON.parse(data.payload);
+
+        console.log(this.competencytypes);
       },
       error => {
         this.alertService.error(error);
@@ -45,33 +47,40 @@ export class SetgoalsComponent implements OnInit {
     );
   }
 
+  onCompetencytypeSelected(selectedtype) {
+    this.loading = true;
+    //Fetch Competency Templates
+    this.competencyMeasurementService
+      .getSingleTemplate(selectedtype.description)
+      .subscribe(
+        data => {
+          this.loading = false;
+          //Get A full object of the template for the user and the user's action plans nested within it
+          this.defaultTemplate = JSON.parse(data.payload);
+
+          console.log(this.defaultTemplate);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      );
+  } //onCompetencytypeSelected
+
   save() {
+    var postdata;
+
     if (!this.editMode) {
-      const actionplan = {
+      postdata = {
         competencytemplateid: this.selectedCompetencyType.id,
         competencytemplatelineitemid: this.selectedCompetencyItem.id,
         actionplandescription: this.myActionPlan
       };
 
-      this.selfservice.saveGoalsettingDetailActionplan(actionplan).subscribe(
-        newplan => {
-          console.log(newplan);
-          //this.actionplan = data;
-          this.selfservice.getActionPlans(this.defaultTemplate.id).subscribe(
-            data => {
-              /*this.actionplan =
-                  _.find(data, {
-                    competencytemplateid: this.selectedCompetencyType.id,
-                    competencytemplatelineitemid: this.selectedCompetencyItem.id
-                  }) || {};*/
-              this.actionplans = data;
-              console.log(this.actionplans);
-            },
-            error => {
-              this.alertService.error(error);
-              this.loading = false;
-            }
-          );
+      this.selfservice.updateGoalsettingDetailActionplan(postdata).subscribe(
+        data => {
+          //Get back the update template struvture with action plan
+          this.defaultTemplate = JSON.parse(data.payload);
           this.myActionPlan = "";
         },
         error => {
@@ -80,100 +89,35 @@ export class SetgoalsComponent implements OnInit {
         }
       );
     } else {
-      this.selectedActionPlan.actionplandescription = this.myActionPlan;
+      this.selectedCompetencyItem.actionplandescription = this.myActionPlan;
 
-      this.selfservice
-        .updateGoalsettingDetailActionplan(this.selectedActionPlan)
-        .subscribe(
-          update => {
-            console.log(update);
-            //this.actionplan = data;
-            this.selfservice.getActionPlans(this.defaultTemplate.id).subscribe(
-              data => {
-                /*this.actionplan =
-                  _.find(data, {
-                    competencytemplateid: this.selectedCompetencyType.id,
-                    competencytemplatelineitemid: this.selectedCompetencyItem.id
-                  }) || {};*/
-                this.actionplans = data;
-                console.log(this.actionplans);
-                this.editMode = false;
-              },
-              error => {
-                this.alertService.error(error);
-                this.loading = false;
-              }
-            );
-            this.myActionPlan = "";
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
-          }
-        );
-    }
-  } //save
+      postdata = this.selectedCompetencyItem;
 
-  onCompetencytypeSelected(selectedtype) {
-    this.loading = true;
-    //Fetch Competency Templates
-    this.competencyMeasurementService.fetchTemplates(selectedtype).subscribe(
-      data => {
-        this.loading = false;
-        this.defaultTemplate = data.itemlist[0] || {};
-
-        //Load Action Plans
-        this.selfservice.getActionPlans(this.defaultTemplate.id).subscribe(
-          data => {
-            /*this.actionplan =
-              _.find(data, {
-                competencytemplateid: this.selectedCompetencyType.id,
-                competencytemplatelineitemid: this.selectedCompetencyItem.id
-              }) || {};*/
-
-            this.actionplans = data;
-            console.log(this.actionplans);
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
-          }
-        );
-      },
-      error => {
-        this.alertService.error(error);
-        this.loading = false;
-      }
-    );
-  } //onCompetencytypeSelected
-
-  getCompetencyItem(competencyitemid) {
-    return _.find(this.defaultTemplate.lineitems, { id: competencyitemid });
-  } //getCompetencyItem
-
-  onCompetencyItemSelected() {
-    /*
-    this.selfservice
-      .getActionPlans(
-        this.selectedCompetencyType.id
-      )
-      .subscribe(
+      this.selfservice.updateGoalsettingDetailActionplan(postdata).subscribe(
         data => {
-          
-
-          this.actionplans = data;
+          //Get back the update template struvture with action plan
+          this.defaultTemplate = JSON.parse(data.payload);
+          this.editMode = false;
+          this.myActionPlan = "";
         },
         error => {
           this.alertService.error(error);
           this.loading = false;
         }
-      );*/
-  } //onCompetencytypeSelected
+      );
+    }
+  } //save
 
-  edit(actionplan) {
+  getCompetencyItem(competencyitemid) {
+    return _.find(this.defaultTemplate.lineitems, { id: competencyitemid });
+  } //getCompetencyItem
+
+  onCompetencyItemSelected() {} //onCompetencytypeSelected
+
+  edit(lineitem) {
     this.editMode = true;
 
-    this.selectedActionPlan = actionplan;
-    this.myActionPlan = actionplan.actionplandescription;
+    this.selectedCompetencyItem = lineitem;
+    this.myActionPlan = lineitem.actionplandescription;
   } //edit
 }

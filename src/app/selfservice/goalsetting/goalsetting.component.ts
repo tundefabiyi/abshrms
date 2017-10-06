@@ -32,7 +32,7 @@ export class GoalsettingComponent implements OnInit {
     //Load Performance Categories
     this.pmsservice.getperformancecategories().subscribe(
       data => {
-        this.performancecategories = data.itemlist;
+        this.performancecategories = JSON.parse(data.payload);
         console.log(this.performancecategories);
       },
       error => {
@@ -42,7 +42,7 @@ export class GoalsettingComponent implements OnInit {
     );
 
     //Load Kpis
-    this.pmsservice.getkpilist().subscribe(
+    /* this.pmsservice.getkpilist().subscribe(
       data => {
         this.kpis = data.itemlist;
         console.log(this.kpis);
@@ -52,15 +52,15 @@ export class GoalsettingComponent implements OnInit {
         this.alertService.error(error);
         this.loading = false;
       }
-    );
+    ); */
   } //ngOnInit
 
   onPerformanceCategorySelected(selectedCategory) {
-    //Get performance templates in this category
-    this.performanceservice.gettemplates(selectedCategory.id).subscribe(
+    //Get currently performance template in this category for this jobholder
+    this.performanceservice.gettemplate(selectedCategory.id).subscribe(
       data => {
-        this.performancetemplates = data;
-        console.log(this.performancetemplates);
+        this.selectedPerformanceTemplate = JSON.parse(data.payload);
+        console.log(this.selectedPerformanceTemplate);
       },
       error => {
         this.alertService.error(error);
@@ -80,6 +80,8 @@ export class GoalsettingComponent implements OnInit {
   } //getKPI
 
   save() {
+    this.loading = true;
+
     const goalCreated = {
       goalsettingmasterid: this.goalsset.length + 1,
       performancemeasurementtemplateid: this.selectedPerformanceTemplate.id,
@@ -87,10 +89,20 @@ export class GoalsettingComponent implements OnInit {
       percentagecommitment: this.commitment
     };
 
-    this.goalsset.push(goalCreated);
+    this.performanceservice.saveSubordinateCommitment(goalCreated).subscribe(
+      data => {
+        this.loading = false;
+        //Get updated template response structure
+        this.selectedPerformanceTemplate = JSON.parse(data.payload);
+      },
+      error => {
+        this.alertService.error(error);
+        this.loading = false;
+      }
+    );
   } //save
 
-  getGoalDetails(goal) {
+  /*  getGoalDetails(goal) {
     const template = _.find(this.performancetemplates, {
       id: goal.performancemeasurementtemplateid
     });
@@ -108,5 +120,5 @@ export class GoalsettingComponent implements OnInit {
       weight: lineitem.weight,
       percentagecommitment: goal.percentagecommitment
     };
-  }
+  } */
 }

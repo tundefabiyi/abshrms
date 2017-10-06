@@ -6,13 +6,13 @@
 
     <label>Competency Category</label>
     <select [(ngModel)]="selectedCompetencyType" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)" class="form-control select2 select2-hidden-accessible"
-      style="width: 100%;" tabindex="-1" aria-hidden="true">
+      style="width: 100%;" tabindex="-1" aria-hidden="true" required>
     <option *ngFor="let competencytypeitem of competencytypes" [ngValue]="competencytypeitem" >{{competencytypeitem.description}}</option>
    
   </select>
     <label>Competency Items</label>
     <select [(ngModel)]="selectedCompetencyItem" name="competencytype" (ngModelChange)="onCompetencyItemSelected($event)" class="form-control select2 select2-hidden-accessible"
-      style="width: 100%;" tabindex="-1" aria-hidden="true">
+      style="width: 100%;" tabindex="-1" aria-hidden="true" required>
   <option *ngFor="let competencyitem of defaultTemplate.lineitems" [ngValue]="competencyitem" >{{competencyitem.competencyitem}}</option>
   
   </select>
@@ -57,15 +57,15 @@
 
 
     </tr>
-    <tr style=" border:1px; background-color:#ffffff;" *ngFor="let item of actionplans">
+    <tr style=" border:1px; background-color:#ffffff;" *ngFor="let item of defaultTemplate.lineitems">
 
       <!--<td>Shared</td>-->
 
-      <td>{{getCompetencyItem(item.competencytemplatelineitemid).competencyitem}}</td>
-      <td>{{getCompetencyItem(item.competencytemplatelineitemid).proficiencylevel}}</td>
+      <td>{{item.competencyitem}}</td>
+      <td>{{item.proficiencylevel}}</td>
       <td>
         <ul>
-          <li *ngFor="let detail of getCompetencyItem(item.competencytemplatelineitemid).competencyitemdetails">{{detail.description}}</li>
+          <li *ngFor="let detail of item.competencyitemdetails">{{detail.description}}</li>
 
         </ul>
       </td>

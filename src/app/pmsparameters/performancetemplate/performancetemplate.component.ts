@@ -27,8 +27,9 @@ export class PerformancetemplateComponent implements OnInit {
     //Load Performance Categories
     this.pMSParametersService.getperformancecategories().subscribe(
       data => {
-        this.performancecategories = this.performanceservice.performancecategories =
-          data.itemlist;
+        this.performancecategories = this.performanceservice.performancecategories = JSON.parse(
+          data.payload
+        );
         console.log(this.performancecategories);
       },
       error => {
@@ -42,7 +43,7 @@ export class PerformancetemplateComponent implements OnInit {
     //Get Templates
     this.performanceservice.gettemplates(selectedCategory.id).subscribe(
       data => {
-        this.performancetemplates = data;
+        this.performancetemplates = JSON.parse(data.payload);
         console.log(this.performancetemplates);
       },
       error => {
@@ -68,7 +69,7 @@ export class PerformancetemplateComponent implements OnInit {
     this.performanceservice.saveTemplate(template).subscribe(
       data => {
         console.log(data);
-        this.performancetemplates.push(data);
+        this.performancetemplates = JSON.parse(data.payload);
 
         this.templateDescription = "";
       },

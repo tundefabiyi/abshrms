@@ -31,7 +31,7 @@ export class CompetencymeasurementComponent implements OnInit {
     this.pMSParametersService.fetchCompetencyTypeList().subscribe(
       data => {
         this.loading = false;
-        this.competencytypes = data.itemlist;
+        this.competencytypes = JSON.parse(data.payload);
       },
       error => {
         this.alertService.error(error);
@@ -46,7 +46,7 @@ export class CompetencymeasurementComponent implements OnInit {
     this.competencyMeasurementService.fetchTemplates(selectedtype).subscribe(
       data => {
         this.loading = false;
-        this.competencytemplates = data.itemlist;
+        this.competencytemplates = JSON.parse(data.payload);
       },
       error => {
         this.alertService.error(error);
@@ -65,7 +65,8 @@ export class CompetencymeasurementComponent implements OnInit {
       this.competencyMeasurementService.update(this.selectedTemplate).subscribe(
         data => {
           //Get the updated list
-          this.competencytemplates = data.itemlist;
+          console.log(data);
+          this.competencytemplates = JSON.parse(data.payload);
 
           //Reset
           this.editMode = false;
@@ -86,7 +87,8 @@ export class CompetencymeasurementComponent implements OnInit {
         .subscribe(
           data => {
             this.loading = false;
-            this.competencytemplates.push(data);
+            console.log(data);
+            this.competencytemplates = JSON.parse(data.payload);
             this.description = "";
           },
           error => {

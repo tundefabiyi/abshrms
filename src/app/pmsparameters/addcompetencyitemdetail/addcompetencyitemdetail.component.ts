@@ -29,7 +29,7 @@ export class AddcompetencyitemdetailComponent implements OnInit {
     this.pMSParametersService.fetchCompetencyItemDetails().subscribe(
       data => {
         this.loading = false;
-        this.competencyitemdetails = data;
+        this.competencyitemdetails = JSON.parse(data.payload);
       },
       error => {
         this.alertService.error(error);
@@ -46,46 +46,18 @@ export class AddcompetencyitemdetailComponent implements OnInit {
 
   save() {
     //Check if this item already exists
-    var duplicates = _.find(this.lineitem.competencyitemdetails, {
-      description: this.selectedCompetencyitemDetail.description
-    });
-
-    if (!duplicates) {
-      const templateBeforeEdit = Object.assign({}, this.competencyTemplate);
-
-      this.lineitem.competencyitemdetails.push(
-        this.selectedCompetencyitemDetail
-      );
-
-      //Update the lineItem
-      this.competencyTemplate.lineitems = _.map(function(lineItem) {
-        if (lineItem.id == this.lineitem.id) {
-          //Return the updated line item
-          return this.lineitem;
+    //Update template
+    this.competencyMeasurementService
+      .updateSingleTemplate(this.selectedCompetencyitemDetail)
+      .subscribe(
+        data => {
+          //Return Updated template
+          this.competencyTemplate = JSON.parse(data.payload);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
         }
-
-        return lineItem;
-      });
-
-      //Update template
-      this.competencyMeasurementService
-        .update(this.competencyTemplate)
-        .subscribe(
-          data => {
-            //Get the updated list
-            console.log(data.itemlist);
-            //this.competencyTemplate.lineitems.push(lineItemCreated);
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
-
-            //Revert the template back to previous form
-            this.competencyTemplate = templateBeforeEdit;
-          }
-        );
-    } else {
-      this.alertService.error("Item Already Exists");
-    }
+      );
   } //save
 }

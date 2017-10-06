@@ -31,42 +31,26 @@ export class LineitemssetupComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.pMSParametersService.fetchCompetencyTypeList().subscribe(
+    //Fetch the Competency Items
+    this.pMSParametersService
+      .fetchCompetencyItemList(this.competencyTemplate.competencytype)
+      .subscribe(
+        data => {
+          this.loading = false;
+          this.competencyitems = JSON.parse(data.payload);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      );
+
+    //Get Proficiency Types
+    this.pMSParametersService.getProficiencyTypes().subscribe(
       data => {
         this.loading = false;
-        this.competencytypelist = data.itemlist;
-
-        //Fetch Competency id of the Competency type for the template
-        var competencytype = _.find(this.competencytypelist, {
-          description: this.competencyTemplate.competencytype
-        });
-
-        //Fetch the Competency Items
-        this.pMSParametersService
-          .fetchCompetencyItemList(competencytype.id)
-          .subscribe(
-            data => {
-              this.loading = false;
-              this.competencyitems = data.itemlist;
-            },
-            error => {
-              this.alertService.error(error);
-              this.loading = false;
-            }
-          );
-
-        //Get Proficiency Types
-        this.pMSParametersService.getProficiencyTypes().subscribe(
-          data => {
-            this.loading = false;
-            this.proficiencytypes = data;
-            console.log(this.proficiencytypes);
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
-          }
-        );
+        this.proficiencytypes = JSON.parse(data.payload);
+        console.log(this.proficiencytypes);
       },
       error => {
         this.alertService.error(error);
@@ -91,81 +75,35 @@ export class LineitemssetupComponent implements OnInit {
         proficiencylevel: this.selectedProficiencytype.description
       };
 
-      //Check if this item already exists
-      var duplicates = _.find(
-        this.competencyTemplate.lineitems,
-        lineItemCreated
-      );
-
-      if (!duplicates) {
-        //Push in the new item
-        this.competencyTemplate.lineitems.push(lineItemCreated);
-        //Update template
-        this.competencyMeasurementService
-          .update(this.competencyTemplate)
-          .subscribe(
-            data => {
-              //Get the updated list
-              console.log(data.itemlist);
-              //this.competencyTemplate.lineitems.push(lineItemCreated);
-            },
-            error => {
-              this.alertService.error(error);
-              this.loading = false;
-
-              //Remove the Pushed Line Item
-              this.competencyTemplate.lineitems = this.competencyTemplate.lineitems.filter(
-                lineitem => {
-                  return !(
-                    lineitem.competencyitem == lineItemCreated.competencyitem &&
-                    lineitem.proficiencylevel ==
-                      lineItemCreated.proficiencylevel
-                  );
-                }
-              );
-            }
-          );
-      } else {
-        this.alertService.error("Item Already Exists");
-      }
-    } else {
-      //NOTE: Server validates duplicates on edit
-      var editedLineItems = _.map(
-        this.competencyTemplate.lineitems,
-        lineitem => {
-          if (lineitem.id == this.selectedlineitem.id) {
-            return {
-              id: this.selectedlineitem.id,
-              competencyitem: this.selectedCompetencyitem.description,
-              proficiencylevel: this.selectedProficiencytype.description
-            };
-          } else {
-            return lineitem;
-          }
-        }
-      );
-
-      const templateBeforeEdit = Object.assign({}, this.competencyTemplate);
-
-      console.log(templateBeforeEdit);
-
-      this.competencyTemplate.lineitems = editedLineItems;
-
-      //Update template
+      //Update template by adding new lineitem
       this.competencyMeasurementService
-        .update(this.competencyTemplate)
+        .updateSingleTemplate(lineItemCreated)
         .subscribe(
           data => {
-            //Get the updated list
-            console.log(data.itemlist);
-            //this.competencyTemplate.lineitems.push(lineItemCreated);
+            //Return the updated template
+            this.competencyTemplate = JSON.parse(data.payload);
+            console.log(this.competencyTemplate);
           },
           error => {
             this.alertService.error(error);
             this.loading = false;
+          }
+        );
+    } else {
+      //NOTE: Server validates duplicates on edit
 
-            //Revert the template back to previous form
-            this.competencyTemplate = templateBeforeEdit;
+      //Update template by updating updated lineitem
+      this.competencyMeasurementService
+        .updateSingleTemplate(this.competencyTemplate)
+        .subscribe(
+          data => {
+            //Return the updated template
+            this.competencyTemplate = JSON.parse(data.payload);
+            console.log(this.competencyTemplate);
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
           }
         );
     }

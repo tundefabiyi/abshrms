@@ -27,7 +27,7 @@ export class SelfServiceHomeComponent implements OnInit {
     this.auth.getsubordinates(this.userdetails.staffid).subscribe(
       data => {
         console.log(data);
-        this.userdetails.subordinates = data;
+        this.userdetails.subordinates = JSON.parse(data.payload);
       },
       error => {}
     );

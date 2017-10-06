@@ -18,10 +18,20 @@ export class CompetencymeasurementService {
       });
   } //fetchCompetencyTemplates
 
+  getSingleTemplate(competencytype: any) {
+    var url = "api/gettemplate";
+    return this.http
+      .get(url + `?competencytype=${competencytype}`)
+      .map((response: Response) => {
+        console.log(response.json());
+        return response.json();
+      });
+  } //getSingleTemplate
+
   create(template: any) {
     return this.http.post(this.Url, template).map((response: Response) => {
-      console.log(response.json().data);
-      return response.json().data;
+      console.log(response.json());
+      return response.json();
     });
   }
 
@@ -31,4 +41,12 @@ export class CompetencymeasurementService {
       return response.json();
     });
   }
+
+  updateSingleTemplate(data) {
+    var url = "api/updatecompetencytemplate";
+    return this.http.put(url, data).map((response: Response) => {
+      console.log(response.json());
+      return response.json();
+    });
+  } //updateSingleTemplateLineitem
 }
