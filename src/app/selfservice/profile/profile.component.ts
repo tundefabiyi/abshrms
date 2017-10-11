@@ -10,10 +10,12 @@ export class ProfileComponent implements OnInit {
   @Output() goalsettingevent: EventEmitter<any>;
   @Output() appraisalevent: EventEmitter<any>;
   @Output() evaluationevent: EventEmitter<any>;
+  @Output() perfappraisalevent: EventEmitter<any>;
   constructor() {
     this.goalsettingevent = new EventEmitter<any>(); //Its very important that you 'new' up your event emitters
     this.appraisalevent = new EventEmitter<any>();
     this.evaluationevent = new EventEmitter<any>();
+    this.perfappraisalevent = new EventEmitter<any>();
   }
 
   ngOnInit() {
@@ -30,5 +32,9 @@ export class ProfileComponent implements OnInit {
 
   evaluation() {
     this.evaluationevent.emit(this.userdetails);
+  } //evaluation
+
+  perfappraisal() {
+    this.perfappraisalevent.emit(this.userdetails);
   } //evaluation
 }

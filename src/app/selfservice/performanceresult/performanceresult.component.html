@@ -1,4 +1,5 @@
-<app-profile [userdetails]="user" (goalsettingevent)="setSubordinateGoal($event)"></app-profile>
+<app-profile [userdetails]="user" (goalsettingevent)="setSubordinateGoal($event)" (appraisalevent)="handleAppraisal()" (evaluationevent)="handleEvaluation()"
+  (perfappraisalevent)="handlePerfAppraisal()"></app-profile>
 
 <h3>Perfromance Result - 60%</h3>
 

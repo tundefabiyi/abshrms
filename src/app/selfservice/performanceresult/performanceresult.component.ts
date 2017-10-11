@@ -36,4 +36,16 @@ export class PerformanceresultComponent implements OnInit {
 
     this.router.navigate(["/selfservice/goalsetting"]);
   } //setSubordinateGoal
+
+  handleAppraisal() {
+    this.router.navigate(["/selfservice/subordinatecompetencyappraisal"]);
+  } //handleAppraisal
+
+  handleEvaluation() {
+    this.router.navigate(["/selfservice/subordinateevaluation"]);
+  } //handleEvaluation
+
+  handlePerfAppraisal() {
+    this.router.navigate(["/selfservice/subordinateperformanceappraisal"]);
+  } //handlePerfAppraisal
 }

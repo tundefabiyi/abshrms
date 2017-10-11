@@ -6,11 +6,11 @@ import { Component, OnInit } from "@angular/core";
 import _ from "lodash";
 
 @Component({
-  selector: "app-mycompetencyappraisal",
-  templateUrl: "./mycompetencyappraisal.component.html",
-  styleUrls: ["./mycompetencyappraisal.component.css"]
+  selector: "app-subordinatecompetencyappraisal",
+  templateUrl: "./subordinatecompetencyappraisal.component.html",
+  styleUrls: ["./subordinatecompetencyappraisal.component.css"]
 })
-export class MycompetencyappraisalComponent implements OnInit {
+export class SubordinatecompetencyappraisalComponent implements OnInit {
   loading: boolean = false;
   selectedCompetencyType;
   selectedCompetencyItem;
@@ -20,6 +20,7 @@ export class MycompetencyappraisalComponent implements OnInit {
   competencytypes: any[] = [];
   defaultTemplate = { id: "", lineitems: [] };
   myScaleRating;
+  user;
 
   constructor(
     private selfservice: SelfserviceService,
@@ -31,6 +32,7 @@ export class MycompetencyappraisalComponent implements OnInit {
   ngOnInit() {
     this.selectedCompetencyType = {};
     this.selectedCompetencyItem = {};
+    this.user = this.selfservice.selectedSubordinate;
     //Fetch Competency Types
     this.pMSParametersService.fetchCompetencyTypeList().subscribe(
       data => {
@@ -82,50 +84,11 @@ export class MycompetencyappraisalComponent implements OnInit {
         this.loading = false;
       }
     );
-
-    /*this.selfservice.saveAppraisalDetailCompetencyRating(detail).subscribe(
-      appraisal => {
-        console.log(appraisal);
-        //this.appraisaldetail = data;
-        this.selfservice
-          .getAppraisalDetailsCompetencyRatings(this.defaultTemplate.id)
-          .subscribe(
-            data => {
-              this.appraisaldetails = data;
-              console.log(this.appraisaldetails);
-            },
-            error => {
-              this.alertService.error(error);
-              this.loading = false;
-            }
-          );
-      },
-      error => {
-        this.alertService.error(error);
-        this.loading = false;
-      }
-    );*/
   } //save
 
   getCompetencyItem(competencyitemid) {
     return _.find(this.defaultTemplate.lineitems, { id: competencyitemid });
   } //getCompetencyItem
 
-  onCompetencyItemSelected() {
-    //this.appraisaldetail = {};
-    /*this.selfservice
-      .getAppraisalDetailsCompetencyRatings(
-        this.selectedCompetencyType.id,
-        this.selectedCompetencyItem.id
-      )
-      .subscribe(
-        data => {
-          this.appraisaldetail = data[0] || {};
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      );*/
-  } //onCompetencytypeSelected
+  onCompetencyItemSelected() {} //onCompetencytypeSelected
 }

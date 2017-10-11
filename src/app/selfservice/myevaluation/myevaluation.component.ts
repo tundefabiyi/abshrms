@@ -1,3 +1,4 @@
+import { AlertService } from "./../../services/alert.service";
 import { SelfserviceService } from "./../selfservice.service";
 import { Component, OnInit } from "@angular/core";
 
@@ -7,34 +8,41 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./myevaluation.component.css"]
 })
 export class MyevaluationComponent implements OnInit {
-  evaluationMaster;
+  evaluation;
   description: string;
-  strength;
-  constructor(private selfservice: SelfserviceService) {}
+  selfassessment;
+  loading;
+  constructor(
+    private selfservice: SelfserviceService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit() {
     //Get the Job holder's evaluation master
     const user = JSON.parse(localStorage.getItem("currentUser"));
-    this.selfservice
-      .getJobholderEvaluationMaster(user.employeeid)
-      .subscribe(data => {
-        this.evaluationMaster = data[0];
-        console.log(this.evaluationMaster);
-      });
+    this.selfservice.getJobholderEvaluation(user.employeeid).subscribe(data => {
+      this.evaluation = JSON.parse(data.payload);
+      console.log(this.evaluation);
+    });
   }
 
   save() {
-    const strength = {
-      evaluationmasterid: this.evaluationMaster.id,
+    this.loading = true;
+    const assessment = {
+      evaluationmasterid: this.evaluation.id,
       description: this.description
     };
 
-    console.log(strength);
-
-    this.selfservice.saveEvaluationDetailStrength(strength).subscribe(data => {
-      this.strength = data;
-
-      console.log(this.strength);
-    });
+    this.selfservice.saveJobholderEvaluation(assessment).subscribe(
+      data => {
+        this.evaluation = JSON.parse(data.payload);
+        console.log(this.evaluation);
+        this.loading = false;
+      },
+      error => {
+        this.alertService.error(error);
+        this.loading = false;
+      }
+    );
   } //save
 }

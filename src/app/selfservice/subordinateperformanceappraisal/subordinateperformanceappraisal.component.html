@@ -1,0 +1,147 @@
+<div class="row">
+  <div class="col-md-6">
+    <!-- general form elements -->
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Supervisor Performance Appraisal</h3>
+      </div>
+      <!-- /.box-header -->
+      <!-- form start -->
+      <form role="form" #f="ngForm">
+        <div class="box-body">
+
+          <div class="form-group">
+            <label>Performance Category</label>
+            <select [(ngModel)]="selectedPerformanceCategory" name="performancecategory" (ngModelChange)="onPerformanceCategorySelected($event)"
+              class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"
+              required>
+            <option *ngFor="let item of performancecategories" [ngValue]="item" >{{item.description}}</option>
+           
+          </select>
+          </div>
+          <div class="form-group">
+            <label>Performance Line Item</label>
+            <select [(ngModel)]="selectedLineItem" name="selectedLineItem" class="form-control" required>
+                <option *ngFor="let item of performanceData?.lineitems" [ngValue]="item">{{item.kpi}}</option>  
+            </select>
+          </div>
+          <label>Weight</label>
+          <p>
+            {{selectedLineItem?.weight}}
+          </p>
+
+          <div class="form-group">
+            <label>Actual Score</label>
+            <select class="form-control" [(ngModel)]="selectedRating" name="selectedRating" required>
+                        <option *ngFor="let item of performanceratingscale" value="{{item.id}}">{{item.rating}}</option>
+                        
+            </select>
+          </div>
+
+
+          <!-- /.box -->
+
+
+          <div class="form-group">
+            <label>Comment (Optional)</label>
+            <textarea [(ngModel)]="supervisorComment" name="supervisorComment" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+          </div>
+
+          <div class="box-footer">
+            <button (click)="saveRating()" [disabled]="!f.valid" class="btn btn-app" style="background-color:dodgerblue;color:white;">
+                     <i class="fa fa-save"></i> Save
+                   </button>
+          </div>
+
+        </div>
+        <!-- /.box-body -->
+
+
+      </form>
+    </div>
+
+  </div>
+
+
+  <div class="col-md-6">
+    <!-- Horizontal Form -->
+
+
+
+    <div class="box box-info">
+
+      <!-- /.box-header -->
+      <!-- form start -->
+
+
+      <div class="info-box bg-blue">
+        <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Appraisal Period</span>
+          <span class="info-box-text">{{performanceData?.appraisalperiod}}</span>
+
+
+          <span class="progress-description">
+              {{performanceData?.appraisalquarter}}
+          </span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+
+      <div class="box-body">
+        <div class="form-group">
+          <label>Strength(To be completed by the Appraiser)</label>
+          <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>(Areas For Development/Improvement)(To be completed by the Appraiser)</label>
+          <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" routerLink="/performanceSup" routerLinkActive="active">Submit</button>
+
+        </div>
+      </div>
+
+      <!-- /.box -->
+    </div>
+
+
+
+  </div>
+
+
+</div>
+
+
+<div class="row">
+  <div class="box box-primary">
+
+    <div class="box-body">
+
+      <table class="table table-hover">
+        <tr>
+          <th>Performance Category</th>
+          <th>Performance Line Item</th>
+          <th>Actual Score</th>
+          <th>Weight</th>
+          <th>Comment</th>
+        </tr>
+
+        <tr *ngFor="let item of performanceData?.lineitems">
+
+          <td>{{performanceData.performancetype}}</td>
+          <td>{{item.kpi}}</td>
+          <td>{{item.supervisorrating}}</td>
+          <td>{{item.weight}}</td>
+          <td>{{item.comment}}</td>
+        </tr>
+
+      </table>
+
+    </div>
+
+  </div>
+</div>

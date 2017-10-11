@@ -1,3 +1,4 @@
+import { SubordinateevaluationComponent } from "./subordinateevaluation/subordinateevaluation.component";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
@@ -13,10 +14,13 @@ import { DataTableModule } from "angular2-datatable";
 import { ProfileComponent } from "./profile/profile.component";
 import { PerformanceresultComponent } from "./performanceresult/performanceresult.component";
 import { SelfserviceService } from "./selfservice.service";
-import { GoalsettingComponent } from './goalsetting/goalsetting.component';
-import { SetgoalsComponent } from './setgoals/setgoals.component';
-import { MycompetencyappraisalComponent } from './mycompetencyappraisal/mycompetencyappraisal.component';
-import { MyevaluationComponent } from './myevaluation/myevaluation.component';
+import { GoalsettingComponent } from "./goalsetting/goalsetting.component";
+import { SetgoalsComponent } from "./setgoals/setgoals.component";
+import { MycompetencyappraisalComponent } from "./mycompetencyappraisal/mycompetencyappraisal.component";
+import { MyevaluationComponent } from "./myevaluation/myevaluation.component";
+import { MyperformanceappraisalComponent } from "./myperformanceappraisal/myperformanceappraisal.component";
+import { SubordinateperformanceappraisalComponent } from "./subordinateperformanceappraisal/subordinateperformanceappraisal.component";
+import { SubordinatecompetencyappraisalComponent } from "./subordinatecompetencyappraisal/subordinatecompetencyappraisal.component";
 
 @NgModule({
   imports: [
@@ -36,7 +40,11 @@ import { MyevaluationComponent } from './myevaluation/myevaluation.component';
     GoalsettingComponent,
     SetgoalsComponent,
     MycompetencyappraisalComponent,
-    MyevaluationComponent
+    MyevaluationComponent,
+    MyperformanceappraisalComponent,
+    SubordinateperformanceappraisalComponent,
+    SubordinatecompetencyappraisalComponent,
+    SubordinateevaluationComponent
   ],
   providers: [
     AuthGuard,

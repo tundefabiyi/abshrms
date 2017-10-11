@@ -35,7 +35,7 @@ export class SelfserviceService {
   saveAppraisalCompetencyRating(detail) {
     var url = "api/appraisaldetailcompetencyrating";
     return this.http.post(url, detail).map((response: Response) => {
-      return response.json().data;
+      return response.json();
     });
   } //saveAppraisalCompetencyRating
 
@@ -58,21 +58,82 @@ export class SelfserviceService {
   } //getActionPlans
 
   //Evaluation
-  getJobholderEvaluationMaster(employeeid) {
-    const rootUrl = "api/evaluationmaster";
+  getJobholderEvaluation(employeeid) {
+    const rootUrl = "api/getjobholderevaluation";
 
     var url = rootUrl + `?jobholderemployeeid=${employeeid}`;
     return this.http.get(url).map((response: Response) => {
       console.log(response.json());
 
-      return response.json().data;
+      return response.json();
     });
   } //getStaffEvaluationMaster
 
-  saveEvaluationDetailStrength(strength) {
-    var url = "api/evaluationdetailstrength";
+  saveJobholderEvaluation(assesmentdata) {
+    var url = "api/savejobholderevaluation";
     return this.http
-      .post(url, strength)
-      .map((response: Response) => response.json().data);
+      .post(url, assesmentdata)
+      .map((response: Response) => response.json());
   } //saveEvaluationDetailStrength
+
+  getCompetencyAppraisal(details) {
+    const url = "api/getcompetencyappraisal";
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getCompetencyAppraisal
+
+  getJobHolderPerformanceAppraisal(employeeid) {
+    const url = `api/getperformanceappraisal?employeeid=${employeeid}`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getJobHolderPerformanceAppraisal
+
+  getSubordinatePerformanceAppraisal(subordinateid) {
+    const url = `api/getsubordinateperformanceappraisal?employeeid=${subordinateid}`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getSubordinatePerformanceAppraisal
+
+  savePerformanceRatingForSubordinate(data) {
+    var url = "api/savesubordinateperformanceappraisal";
+    return this.http
+      .post(url, data)
+      .map((response: Response) => response.json());
+  } //savePerformanceRatingForSubordinate
+
+  getCompetencyRatingScale() {
+    const url = `api/getcompetencyratingscale`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getPerformanceRatingScale
+
+  getPerformanceRatingScale() {
+    const url = `api/getperformanceratingscale`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getPerformanceRatingScale
+
+  getAppraisalSummary(employeeid) {
+    const url = `api/getappraisalsummary?employeeid=${employeeid}`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  }
 }

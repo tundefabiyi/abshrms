@@ -1,21 +1,28 @@
 <div class="box-body table-responsive no-padding">
-  <table class="table table-hover">
+  <table class="table table-hover" *ngIf="evaluation">
     <tr>
-      <th>KPI</th>
-      <th>Commitments</th>
-      <th>Functional Competencies</th>
+      <th>&nbsp;</th>
+      <th>Functional Competncies</th>
 
 
     </tr>
     <tr>
 
-      <td>Budget varience </td>
-      <td>Not exceeding 10% of the approved budget</td>
+      <td>
+        <table class="table table-striped">
+          <tr>
+            <th>KPI</th>
+            <th>Commitments</th>
+          </tr>
+          <tr *ngFor="let item of evaluation.kpicommitments">
+            <td>{{item.kpi}}</td>
+            <td>{{item.commitment}}</td>
+          </tr>
+        </table>
+      </td>
       <td>
         <ul>
-          <li>Business Continuety</li>
-          <li>IT Architecture & Standards</li>
-          <li>Application Infrastructure Management</li>
+          <li *ngFor="let competency of evaluation.functionalcompetencies">{{competency.description}}</li>
         </ul>
 
       </td>
@@ -47,7 +54,8 @@
     <!-- /.box-header -->
     <div class="box-body pad">
       <form>
-        <textarea class="textarea" [(ngModel)]="description" name="description" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+        <textarea class="textarea" [(ngModel)]="description" value="{{evaluation?.jobholderassesment}}" name="description" placeholder="Place some text here"
+          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
         <div class="row">&nbsp;</div>
         <div class="row">
           <div class="col-md-12">

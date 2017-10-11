@@ -1,3 +1,7 @@
+import { SubordinateevaluationComponent } from "./subordinateevaluation/subordinateevaluation.component";
+import { SubordinatecompetencyappraisalComponent } from "./subordinatecompetencyappraisal/subordinatecompetencyappraisal.component";
+import { SubordinateperformanceappraisalComponent } from "./subordinateperformanceappraisal/subordinateperformanceappraisal.component";
+import { MyperformanceappraisalComponent } from "./myperformanceappraisal/myperformanceappraisal.component";
 import { MyevaluationComponent } from "./myevaluation/myevaluation.component";
 import { MycompetencyappraisalComponent } from "./mycompetencyappraisal/mycompetencyappraisal.component";
 import { SetgoalsComponent } from "./setgoals/setgoals.component";
@@ -19,8 +23,27 @@ const appRoutes: Routes = [
       { path: "performanceresult", component: PerformanceresultComponent },
       { path: "goalsetting", component: GoalsettingComponent },
       { path: "setgoals", component: SetgoalsComponent },
-      { path: "manageappraisal", component: MycompetencyappraisalComponent },
-      { path: "myevaluation", component: MyevaluationComponent }
+      {
+        path: "mycompetencyappraisal",
+        component: MycompetencyappraisalComponent
+      },
+      { path: "myevaluation", component: MyevaluationComponent },
+      {
+        path: "myperformanceappraisal",
+        component: MyperformanceappraisalComponent
+      },
+      {
+        path: "subordinateperformanceappraisal",
+        component: SubordinateperformanceappraisalComponent
+      },
+      {
+        path: "subordinatecompetencyappraisal",
+        component: SubordinatecompetencyappraisalComponent
+      },
+      {
+        path: "subordinateevaluation",
+        component: SubordinateevaluationComponent
+      }
     ],
     canActivate: [AuthGuard]
   }

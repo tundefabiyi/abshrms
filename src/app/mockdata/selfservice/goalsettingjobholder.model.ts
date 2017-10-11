@@ -1,17 +1,14 @@
-import { competencyratingscale } from "./ratingscale.model";
-export const competencyappraisal = {
+export const goalsettingjobholder = {
   id: "1000",
   description: "Shared Competency Template For Branch Mahagers",
+  goalsettingformid: 3,
   competencytype: "Shared Competency",
-  appraisalperiod: "8th Jan - 8th April",
-  apprailsalperioddescription: "1st Quater Appraisal",
-  appraisalheader: "Section A - Shared Competencies - 10%",
   status: "Pending",
-  competencyratingscale: competencyratingscale,
   lineitems: [
     {
       id: "1",
       competencyitem: "Effectiveness",
+      updaterecordid: 1, //Id to be passed back to update the record
       proficiencylevel: "Skilled",
       competencyitemdetails: [
         {
@@ -29,13 +26,12 @@ export const competencyappraisal = {
             "Manages time efficiently and effectively to deliver desired result"
         }
       ],
-      actionplandescription: "I will ensure i am highly effective",
-      jobholderrating: { id: 1, description: "Always", rating: 2 },
-      supervisorrating: { id: 2, description: "Regularly", rating: 1.6 }
+      actionplandescription: "I will ensure i am highly effective"
     },
     {
       id: "2",
       competencyitem: "Knowledge & Skills",
+      updaterecordid: 2, //Id to be passed back to update the record
       proficiencylevel: "Skilled",
       competencyitemdetails: [
         {
@@ -44,13 +40,12 @@ export const competencyappraisal = {
             "Displays competence that specifies the relevant technical or professional knowledge and skills"
         }
       ],
-      actionplandescription: "I will not sleep at work",
-      jobholderrating: { id: 2, description: "Regularly", rating: 2 },
-      supervisorrating: { id: 4, description: "Sometimes", rating: 0.8 }
+      actionplandescription: "I will not sleep at work"
     },
     {
       id: "3",
       competencyitem: "Accountability",
+      updaterecordid: 3, //Id to be passed back to update the record (action plan in this case)
       proficiencylevel: "Skilled",
       competencyitemdetails: [
         {
@@ -69,9 +64,7 @@ export const competencyappraisal = {
             "Demostrate the ability to drive discussions, idea generation and brain storming."
         }
       ],
-      actionplandescription: "I will not steal government money",
-      jobholderrating: {}, //Return Empty object for undone ratings
-      supervisorrating: {}
+      actionplandescription: "I will not steal government money"
     }
   ]
 };

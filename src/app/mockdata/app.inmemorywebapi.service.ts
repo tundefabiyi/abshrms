@@ -1,3 +1,11 @@
+import { appraisalsummary } from './selfservice/appraisalsummary.model';
+import { subordinateperformanceappraisal } from "./selfservice/subordinateperformanceappraisal.model";
+import { performanceratingscale } from "./selfservice/performanceratingscale.model";
+import { competencyratingscale } from "./selfservice/ratingscale.model";
+import { goalsettingsupervisor } from "./selfservice/goalsettingsupervisor.model";
+import { jobholderperformanceappraisal } from "./selfservice/jobholderperformanceappraisal.model";
+import { jobholderevaluation } from "./selfservice/jobholderevaluation.model";
+import { competencyappraisal } from "./selfservice/competencyappraisal.model";
 import { performancetemplates } from "./pmsparameters/performancetemplate.model";
 import { competencytemplate } from "./pmsparameters/competencytemplate.model";
 import {
@@ -460,6 +468,12 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
       return this.getCompetencyTemplates(reqInfo);
     } else if (url === "api/performancemeasurementtemplates") {
       return this.getPerformanceTemplates(reqInfo);
+    } else if (url === "api/appraisaldetailcompetencyrating") {
+      return this.returnDataAsPayload(reqInfo, competencyappraisal);
+    } else if (url === "api/savejobholderevaluation") {
+      return this.returnDataAsPayload(reqInfo, jobholderevaluation);
+    } else if (url === "api/savesubordinateperformanceappraisal") {
+      return this.returnDataAsPayload(reqInfo, subordinateperformanceappraisal);
     }
 
     return undefined; // let the default GET handle all others
@@ -499,9 +513,27 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
       url.indexOf("getcurrentperformancetemplate?performancetypeid=") != -1
     ) {
       return this.returnPerformanceTemplate(reqInfo);
+    } else if (url === "api/getcompetencyappraisal") {
+      return this.returnDataAsPayload(reqInfo, competencyappraisal);
+    } else if (
+      url.indexOf("api/getjobholderevaluation?jobholderemployeeid=") != -1
+    ) {
+      return this.returnDataAsPayload(reqInfo, jobholderevaluation);
+    } else if (url.indexOf("getperformanceappraisal?employeeid=") != -1) {
+      return this.returnDataAsPayload(reqInfo, jobholderperformanceappraisal);
+    } else if (
+      url.indexOf("getsubordinateperformanceappraisal?employeeid=") != -1
+    ) {
+      return this.returnDataAsPayload(reqInfo, subordinateperformanceappraisal);
+    } else if (url === "api/getcompetencyratingscale") {
+      return this.returnDataAsPayload(reqInfo, competencyratingscale);
+    } else if (url === "api/getperformanceratingscale") {
+      return this.returnDataAsPayload(reqInfo, performanceratingscale);
+    } else if (url.indexOf("getappraisalsummary?employeeid=") != -1) {
+      return this.returnDataAsPayload(reqInfo, appraisalsummary);
     }
     return undefined; // let the default GET handle all others
-  }
+  } //get
 
   put(reqInfo: RequestInfo) {
     const url = reqInfo.url;
@@ -521,6 +553,18 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
     }
     return undefined; // let the default PUT handle all others
   } //end put
+
+  private returnDataAsPayload(reqInfo, data) {
+    return reqInfo.utils.createResponse$(() => {
+      const options: ResponseOptions = {
+        body: {
+          payload: JSON.stringify(data)
+        },
+        status: STATUS.OK
+      };
+      return this.finishOptions(options, reqInfo);
+    });
+  } //returnDataAsPayload
 
   private returnCollectionAsPayload(reqInfo: RequestInfo) {
     return reqInfo.utils.createResponse$(() => {

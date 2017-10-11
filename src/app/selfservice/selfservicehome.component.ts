@@ -45,11 +45,16 @@ export class SelfServiceHomeComponent implements OnInit {
 
   handleAppraisal() {
     //Go to Self Appraisal Setting page
-    this.router.navigate(["/selfservice/manageappraisal"]);
+    this.router.navigate(["/selfservice/mycompetencyappraisal"]);
   } //handleAppraisal
 
   handleEvaluation() {
     //Go to Evaluation page
     this.router.navigate(["/selfservice/myevaluation"]);
   } //handleEvaluation
+
+  handlePerfAppraisal() {
+    //View Performance Appraisal
+    this.router.navigate(["/selfservice/myperformanceappraisal"]);
+  } //handlePerfAppraisal
 }
