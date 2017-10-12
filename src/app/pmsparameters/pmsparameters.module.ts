@@ -27,6 +27,7 @@ import { PerformancetemplateComponent } from "./performancetemplate/performancet
 import { PerformanceService } from "./performancetemplate/performance.service";
 import { PerformancelineitemComponent } from './performancelineitem/performancelineitem.component';
 import { SamplepageComponent } from './samplepage/samplepage.component';
+import { CompetencytemplatedetailComponent } from './competencytemplatedetail/competencytemplatedetail.component';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { SamplepageComponent } from './samplepage/samplepage.component';
     AddcompetencyitemdetailComponent,
     PerformancetemplateComponent,
     PerformancelineitemComponent,
-    SamplepageComponent
+    SamplepageComponent,
+    CompetencytemplatedetailComponent
   ],
   providers: [
     AuthGuard,

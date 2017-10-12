@@ -1,4 +1,4 @@
-<h4 style='color:darkcyan'>Competency template Detail For HR</h4>
+<h4 style='color:darkcyan'>{{template.description}}</h4>
 <div class="row">
   <div class="col-xs-12">
     <div class="box box-primary">
@@ -11,41 +11,22 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive padding">
-        <table class="table table-hover">
+        <table class="table table-hover" *ngFor="let item of template.lineitems">
           <tr>
 
-            <th style="background-color:#828181">Effectivness</th>
+            <th style="background-color:#828181">{{item.competencyitem}}</th>
             <th style="background-color:#9a9999">Proficiency Level</th>
-
-
-
-
-
 
           </tr>
           <tr style="background-color:#FFFFFF">
-
-
-
             <td>
               <ul>
-                <li>Identifies concepts for new programmes of services to shapes</li>
-                <li>maintains composure and attention in high pressured situations</li>
-                <li>Impliments strategic objectives and develops metrics to assess attainment of set goal</li>
+                <li *ngFor="let line of item.competencyitemdetails">{{line.description}}</li>
+
               </ul>
             </td>
-            <td style="background-color:#FFFFFF">Skilled</td>
-
-
+            <td style="background-color:#FFFFFF">{{item.proficiencylevel}}</td>
           </tr>
-
-
-
-
-
-
-
-
         </table>
       </div>
       <!-- /.box-body -->

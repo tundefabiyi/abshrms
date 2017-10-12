@@ -107,7 +107,7 @@ export class CompetencymeasurementComponent implements OnInit {
 
   detail(template: object) {
     this.competencyMeasurementService.selectedTemplate = template;
-    this.router.navigate(["/templatedetails"]);
+    this.router.navigate(["/pmsparameters/competencytemplatedetail"]);
   }
 
   manage(template: object) {

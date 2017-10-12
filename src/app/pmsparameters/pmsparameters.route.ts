@@ -1,3 +1,4 @@
+import { CompetencytemplatedetailComponent } from "./competencytemplatedetail/competencytemplatedetail.component";
 import { SamplepageComponent } from "./samplepage/samplepage.component";
 import { Routes, RouterModule } from "@angular/router";
 import { PMSParametersRootComponent } from "./pmsparametersroot.component";
@@ -53,6 +54,10 @@ const appRoutes: Routes = [
       {
         path: "performancelineitem",
         component: PerformancelineitemComponent
+      },
+      {
+        path: "competencytemplatedetail",
+        component: CompetencytemplatedetailComponent
       },
       {
         path: "sample",
