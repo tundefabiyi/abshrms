@@ -1,6 +1,7 @@
+import { performanceappraisal } from './performanceappraisal.model';
 import { goalsettingsupervisor } from "./goalsettingsupervisor.model";
 export const appraisalsummary = {
-  performanceappraisal: goalsettingsupervisor,
+  performanceappraisal: performanceappraisal,
   competencyappraisal: [
     {
       id: "1000",

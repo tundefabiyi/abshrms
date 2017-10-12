@@ -22,7 +22,7 @@ export const performanceappraisal = [
         weight: 10.0,
         //Entered in by supervisor
         commitment: 90.0,
-        ratings: 8
+        rating: 8
       }
     ]
   },
@@ -30,30 +30,25 @@ export const performanceappraisal = [
     id: 2,
     performancetype: "Learning and Development",
     description: "Learning and Development Performance Measurement for HR",
-    computationbasis: "Employee Satisfaction survey score",
     status: "Pending",
     lineitems: [
       {
         id: 12,
         kpi: "Company-wide Training Coverage",
         weight: 5.0,
+        computationbasis: "Employee Satisfaction survey score",
         //Entered in by supervisor
         commitment: 38.0,
-        ratings: {
-          rating1: false,
-          rating2: true,
-          rating3: false,
-          rating4: false,
-          rating5: false
-        }
+        rating: 3
       },
       {
-        id: 2,
+        id: 13,
         kpi: "Development of Individual Learning & Development Schedule",
         weight: 10.0,
+        computationbasis: "Punctuality Index",
         //Entered in by supervisor
         commitment: 50.0,
-        ratings: 6
+        rating: 6
       }
     ]
   }

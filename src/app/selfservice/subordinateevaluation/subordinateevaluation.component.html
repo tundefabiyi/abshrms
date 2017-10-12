@@ -76,10 +76,10 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive padding">
-        <table class="table table-hover">
+        <table class="table table-hover" *ngFor="let item of appraisalsummary?.performanceappraisal">
           <tr>
             <th style="background-color:#FFB694">Performance Category:</th>
-            <td style="background-color:#FFB694">Financial</td>
+            <td style="background-color:#FFB694">{{item.performancetype}}</td>
 
 
           </tr>
@@ -93,65 +93,16 @@
             <th>Actual Score</th>
             <th>Comment</th>
 
-
-
-
           </tr>
 
+          <tr *ngFor="let line of item.lineitems">
 
-
-          <tr>
-
-            <td>Staff cost to income ratio</td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-
-
-
+            <td>{{line.kpi}}</td>
+            <td>{{line.weight}}</td>
+            <td>{{line.commitment}}</td>
+            <td>{{line.rating}}</td>
+            <td>{{line.comment}}</td>
           </tr>
-
-
-          <tr>
-            <th style="background-color:#FFB694">Performance Category:</th>
-            <td style="background-color:#FFB694">StakeHolders</td>
-
-
-          </tr>
-          <tr style="background-color:lightgray">
-
-            <th>Performance Line Item</th>
-
-
-            <th>Weight</th>
-            <th>Target</th>
-            <th>Actual Score</th>
-            <th>Comment</th>
-
-
-
-
-          </tr>
-
-
-
-          <tr>
-
-            <td>Staff cost to income ratio</td>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td></td>
-
-
-
-          </tr>
-
-
-
 
 
         </table>
@@ -159,8 +110,33 @@
       <!-- /.box-body -->
     </div>
     <!-- /.box -->
+
+    <div class="box box-info">
+
+      <div class="box-body">
+        <form #f="ngForm">
+          <div class="form-group">
+            <label>Strength(To be completed by the Appraiser)</label>
+            <textarea [(ngModel)]="subordinateStrength" name="subordinateStrength" class="form-control" rows="3" placeholder="Enter ..."
+              required></textarea>
+          </div>
+          <div class="form-group">
+            <label>(Areas For Development/Improvement)(To be completed by the Appraiser)</label>
+            <textarea [(ngModel)]="subordinateImprovementAreas" name="subordinateImprovementAreas" class="form-control" rows="3" placeholder="Enter ..."
+              required></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="!f.valid" (click)="save()" class="btn btn-primary">Submit</button>
+
+          </div>
+        </form>
+
+      </div>
+
+      <!-- /.box -->
+    </div>
   </div>
 </div>
 
-<div class="row" style="background-color:#ffffff; height:35px; margin-left:30px;"> <label>Accept</label> <input type="checkbox">
-  <label>Reject</label> <input type="checkbox"></div>
+<!-- <div class="row" style="background-color:#ffffff; height:35px; margin-left:30px;"> <label>Accept</label> <input type="checkbox">
+  <label>Reject</label> <input type="checkbox"></div> -->
