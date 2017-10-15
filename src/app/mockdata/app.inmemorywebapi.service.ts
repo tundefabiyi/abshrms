@@ -1,4 +1,4 @@
-import { appraisalsummary } from './selfservice/appraisalsummary.model';
+import { appraisalsummary } from "./selfservice/appraisalsummary.model";
 import { subordinateperformanceappraisal } from "./selfservice/subordinateperformanceappraisal.model";
 import { performanceratingscale } from "./selfservice/performanceratingscale.model";
 import { competencyratingscale } from "./selfservice/ratingscale.model";
@@ -474,6 +474,8 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
       return this.returnDataAsPayload(reqInfo, jobholderevaluation);
     } else if (url === "api/savesubordinateperformanceappraisal") {
       return this.returnDataAsPayload(reqInfo, subordinateperformanceappraisal);
+    } else if (url === "api/saveperformancerating") {
+      return this.returnDataAsPayload(reqInfo, performanceratingscale);
     }
 
     return undefined; // let the default GET handle all others

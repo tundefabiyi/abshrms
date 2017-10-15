@@ -15,14 +15,14 @@
             <select [(ngModel)]="selectedPerformanceCategory" name="performancecategory" (ngModelChange)="onPerformanceCategorySelected($event)"
               class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"
               required>
-            <option *ngFor="let item of performancecategories" [ngValue]="item" >{{item.description}}</option>
-           
-          </select>
+              <option *ngFor="let item of performancecategories" [ngValue]="item">{{item.description}}</option>
+
+            </select>
           </div>
           <div class="form-group">
             <label>Performance Line Item</label>
             <select [(ngModel)]="selectedLineItem" name="selectedLineItem" class="form-control" required>
-                <option *ngFor="let item of performanceData?.lineitems" [ngValue]="item">{{item.kpi}}</option>  
+              <option *ngFor="let item of performanceData?.lineitems" [ngValue]="item">{{item.kpi}}</option>
             </select>
           </div>
           <label>Weight</label>
@@ -33,8 +33,8 @@
           <div class="form-group">
             <label>Actual Score</label>
             <select class="form-control" [(ngModel)]="selectedRating" name="selectedRating" required>
-                        <option *ngFor="let item of performanceratingscale" value="{{item.id}}">{{item.rating}}</option>
-                        
+              <option *ngFor="let item of performanceratingscale" value="{{item.rating}}">{{item.description}}</option>
+
             </select>
           </div>
 
@@ -49,8 +49,8 @@
 
           <div class="box-footer">
             <button (click)="saveRating()" [disabled]="!f.valid" class="btn btn-app" style="background-color:dodgerblue;color:white;">
-                     <i class="fa fa-save"></i> Save
-                   </button>
+              <i class="fa fa-save"></i> Save
+            </button>
           </div>
 
         </div>
@@ -75,7 +75,9 @@
 
 
       <div class="info-box bg-blue">
-        <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+        <span class="info-box-icon">
+          <i class="fa fa-calendar"></i>
+        </span>
 
         <div class="info-box-content">
           <span class="info-box-text">Appraisal Period</span>
@@ -83,7 +85,7 @@
 
 
           <span class="progress-description">
-              {{performanceData?.appraisalquarter}}
+            {{performanceData?.appraisalquarter}}
           </span>
         </div>
         <!-- /.info-box-content -->

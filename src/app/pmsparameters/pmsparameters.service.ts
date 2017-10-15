@@ -117,4 +117,16 @@ export class PMSParametersService {
     console.error("An error occurred", error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
+
+  /* private getPerformanceRatings() {
+    var url = "api/getperformanceratings";
+    return this.http.get(url).map((response: Response) => response.json());
+  } //getPerformanceRatings */
+
+  savePerformanceRating(ratingdata) {
+    var url = "api/saveperformancerating";
+    return this.http
+      .post(url, ratingdata)
+      .map((response: Response) => response.json());
+  } //savePerformanceRating
 }

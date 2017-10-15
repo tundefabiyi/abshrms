@@ -1,3 +1,4 @@
+import { PerformancescalesetupComponent } from "./performancescalesetup/performancescalesetup.component";
 import { CompetencytemplatedetailComponent } from "./competencytemplatedetail/competencytemplatedetail.component";
 import { SamplepageComponent } from "./samplepage/samplepage.component";
 import { Routes, RouterModule } from "@angular/router";
@@ -58,6 +59,10 @@ const appRoutes: Routes = [
       {
         path: "competencytemplatedetail",
         component: CompetencytemplatedetailComponent
+      },
+      {
+        path: "performancescalesetup",
+        component: PerformancescalesetupComponent
       },
       {
         path: "sample",
