@@ -129,4 +129,11 @@ export class PMSParametersService {
       .post(url, ratingdata)
       .map((response: Response) => response.json());
   } //savePerformanceRating
+
+  saveCompetencyRating(ratingdata) {
+    var url = "api/savecompetencyrating";
+    return this.http
+      .post(url, ratingdata)
+      .map((response: Response) => response.json());
+  } //saveCompetencyRating
 }

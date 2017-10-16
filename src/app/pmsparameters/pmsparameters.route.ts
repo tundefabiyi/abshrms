@@ -1,3 +1,4 @@
+import { CompetencyratingsetupComponent } from "./competencyratingsetup/competencyratingsetup.component";
 import { PerformancescalesetupComponent } from "./performancescalesetup/performancescalesetup.component";
 import { CompetencytemplatedetailComponent } from "./competencytemplatedetail/competencytemplatedetail.component";
 import { SamplepageComponent } from "./samplepage/samplepage.component";
@@ -63,6 +64,10 @@ const appRoutes: Routes = [
       {
         path: "performancescalesetup",
         component: PerformancescalesetupComponent
+      },
+      {
+        path: "competencyscalesetup",
+        component: CompetencyratingsetupComponent
       },
       {
         path: "sample",

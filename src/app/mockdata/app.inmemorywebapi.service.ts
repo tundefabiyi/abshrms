@@ -476,6 +476,8 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
       return this.returnDataAsPayload(reqInfo, subordinateperformanceappraisal);
     } else if (url === "api/saveperformancerating") {
       return this.returnDataAsPayload(reqInfo, performanceratingscale);
+    } else if (url === "api/savecompetencyrating") {
+      return this.returnDataAsPayload(reqInfo, competencyratingscale);
     }
 
     return undefined; // let the default GET handle all others
