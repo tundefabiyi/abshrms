@@ -1,6 +1,10 @@
-import { performanceappraisal } from './performanceappraisal.model';
+import { performanceappraisal } from "./performanceappraisal.model";
 import { goalsettingsupervisor } from "./goalsettingsupervisor.model";
 export const appraisalsummary = {
+  employeeid: "002",
+  fullname: "Adetayo James",
+  jobfunction: "Branch Manager",
+  jobposition: "Edo State Branch Manager",
   performanceappraisal: performanceappraisal,
   competencyappraisal: [
     {
@@ -77,5 +81,9 @@ export const appraisalsummary = {
         }
       ]
     }
-  ]
+  ],
+  totalperformancescore: "49%",
+  totalcompetencyscore: "30%",
+  totalscore: "79%",
+  attestation: "Accepted"
 };

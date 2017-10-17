@@ -1,3 +1,4 @@
+import { HrModule } from "./hr/hr.module";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
@@ -27,6 +28,7 @@ import { AppInMemoryWebAPIService } from "./mockdata/app.inmemorywebapi.service"
     NavigationModule,
     PMSParametersModule,
     DataTableModule,
+    HrModule,
     InMemoryWebApiModule.forRoot(AppInMemoryWebAPIService, {
       passThruUnknownUrl: true
     })

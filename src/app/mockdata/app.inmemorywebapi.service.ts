@@ -1,3 +1,5 @@
+import { appraisalsummaries } from "./hr/appraisalsummaries.model";
+import { appraisalperiods } from "./pmsparameters/appraisalperiods.model";
 import { appraisalsummary } from "./selfservice/appraisalsummary.model";
 import { subordinateperformanceappraisal } from "./selfservice/subordinateperformanceappraisal.model";
 import { performanceratingscale } from "./selfservice/performanceratingscale.model";
@@ -535,6 +537,10 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
       return this.returnDataAsPayload(reqInfo, performanceratingscale);
     } else if (url.indexOf("getappraisalsummary?employeeid=") != -1) {
       return this.returnDataAsPayload(reqInfo, appraisalsummary);
+    } else if (url === "api/getappraisalperiods") {
+      return this.returnDataAsPayload(reqInfo, appraisalperiods);
+    } else if (url === "api/getcurrentappraisals") {
+      return this.returnDataAsPayload(reqInfo, appraisalsummaries);
     }
     return undefined; // let the default GET handle all others
   } //get
@@ -554,6 +560,8 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
     } else if (url === "api/performancemeasurementtemplates") {
       //Return the new updated list
       return this.returnPerformanceTemplate(reqInfo);
+    } else if (url === "api/setcurrentappraisalperiod") {
+      return this.returnDataAsPayload(reqInfo, appraisalperiods);
     }
     return undefined; // let the default PUT handle all others
   } //end put

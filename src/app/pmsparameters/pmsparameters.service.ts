@@ -136,4 +136,17 @@ export class PMSParametersService {
       .post(url, ratingdata)
       .map((response: Response) => response.json());
   } //saveCompetencyRating
+
+  fetchAppraisalPeriods() {
+    var url = "api/getappraisalperiods";
+    return this.http.get(url).map((response: Response) => response.json());
+  } //fetchAppraisalPeriods
+
+  setCurrentAppraisalPeriod(selectedPeriod) {
+    const url = "api/setcurrentappraisalperiod";
+    return this.http.put(url, selectedPeriod).map((response: Response) => {
+      console.log(response.json());
+      return response.json();
+    });
+  } //setCurrentAppraisalPeriod
 }

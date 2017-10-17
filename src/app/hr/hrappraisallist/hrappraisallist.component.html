@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="box box-primary">
+    <h3 style="margin-left:11px;">Result List</h3>
+    <table id="example1" class="table table-bordered table-striped dataTable" datatable aria-describedby="example1_info">
+      <thead>
+        <tr role="row">
+
+          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">
+            Job Holder
+          </th>
+          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">
+            Position
+          </th>
+          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">
+            Competency
+          </th>
+          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">
+            Performance
+          </th>
+          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">
+            Total
+          </th>
+          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">
+            Attestation Status
+          </th>
+          <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">
+            Details
+          </th>
+
+
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr role="row" class="odd" *ngFor="let item of appraisals">
+          <td>{{item.fullname}}</td>
+          <td>{{item.jobposition}}</td>
+          <td>{{item.totalcompetencyscore}}</td>
+          <td>{{item.totalperformancescore}}</td>
+          <td>{{item.totalscore}}</td>
+          <td>{{item.attestation}}</td>
+          <td>
+            <button class="btn btn-primary" (click)="view(item)">View Details</button>
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+</div>

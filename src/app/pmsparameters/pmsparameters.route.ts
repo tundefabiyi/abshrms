@@ -1,3 +1,5 @@
+import { FinalratingheadersetupComponent } from "./finalratingheadersetup/finalratingheadersetup.component";
+import { SetappraisalperiodComponent } from "./setappraisalperiod/setappraisalperiod.component";
 import { CompetencyratingsetupComponent } from "./competencyratingsetup/competencyratingsetup.component";
 import { PerformancescalesetupComponent } from "./performancescalesetup/performancescalesetup.component";
 import { CompetencytemplatedetailComponent } from "./competencytemplatedetail/competencytemplatedetail.component";
@@ -68,6 +70,14 @@ const appRoutes: Routes = [
       {
         path: "competencyscalesetup",
         component: CompetencyratingsetupComponent
+      },
+      {
+        path: "setappraisalperiod",
+        component: SetappraisalperiodComponent
+      },
+      {
+        path: "finalratingheadersetup",
+        component: FinalratingheadersetupComponent
       },
       {
         path: "sample",

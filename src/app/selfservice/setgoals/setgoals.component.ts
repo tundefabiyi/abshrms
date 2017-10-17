@@ -21,6 +21,7 @@ export class SetgoalsComponent implements OnInit {
   defaultTemplate = { id: "", lineitems: [] };
   editMode: boolean = false;
   selectedActionPlan;
+  postdata: any = {};
 
   constructor(
     private selfservice: SelfserviceService,
@@ -68,43 +69,35 @@ export class SetgoalsComponent implements OnInit {
   } //onCompetencytypeSelected
 
   save() {
-    var postdata;
-
     if (!this.editMode) {
-      postdata = {
-        competencytemplateid: this.selectedCompetencyType.id,
-        competencytemplatelineitemid: this.selectedCompetencyItem.id,
-        actionplandescription: this.myActionPlan
-      };
-
-      this.selfservice.updateGoalsettingDetailActionplan(postdata).subscribe(
-        data => {
-          //Get back the update template struvture with action plan
-          this.defaultTemplate = JSON.parse(data.payload);
-          this.myActionPlan = "";
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      );
+      this.selfservice
+        .updateGoalsettingDetailActionplan(this.postdata)
+        .subscribe(
+          data => {
+            //Get back the update template struvture with action plan
+            this.defaultTemplate = JSON.parse(data.payload);
+            this.myActionPlan = "";
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          }
+        );
     } else {
-      this.selectedCompetencyItem.actionplandescription = this.myActionPlan;
-
-      postdata = this.selectedCompetencyItem;
-
-      this.selfservice.updateGoalsettingDetailActionplan(postdata).subscribe(
-        data => {
-          //Get back the update template struvture with action plan
-          this.defaultTemplate = JSON.parse(data.payload);
-          this.editMode = false;
-          this.myActionPlan = "";
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      );
+      this.selfservice
+        .updateGoalsettingDetailActionplan(this.postdata)
+        .subscribe(
+          data => {
+            //Get back the update template struvture with action plan
+            this.defaultTemplate = JSON.parse(data.payload);
+            this.editMode = false;
+            this.myActionPlan = "";
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          }
+        );
     }
   } //save
 

@@ -30,6 +30,8 @@ import { SamplepageComponent } from './samplepage/samplepage.component';
 import { CompetencytemplatedetailComponent } from './competencytemplatedetail/competencytemplatedetail.component';
 import { PerformancescalesetupComponent } from './performancescalesetup/performancescalesetup.component';
 import { CompetencyratingsetupComponent } from './competencyratingsetup/competencyratingsetup.component';
+import { SetappraisalperiodComponent } from './setappraisalperiod/setappraisalperiod.component';
+import { FinalratingheadersetupComponent } from './finalratingheadersetup/finalratingheadersetup.component';
 
 @NgModule({
   imports: [
@@ -59,7 +61,9 @@ import { CompetencyratingsetupComponent } from './competencyratingsetup/competen
     SamplepageComponent,
     CompetencytemplatedetailComponent,
     PerformancescalesetupComponent,
-    CompetencyratingsetupComponent
+    CompetencyratingsetupComponent,
+    SetappraisalperiodComponent,
+    FinalratingheadersetupComponent
   ],
   providers: [
     AuthGuard,

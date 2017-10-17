@@ -5,21 +5,21 @@
 
 
     <label>Competency Category</label>
-    <select [(ngModel)]="selectedCompetencyType" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)" class="form-control select2 select2-hidden-accessible"
-      style="width: 100%;" tabindex="-1" aria-hidden="true" required>
-    <option *ngFor="let competencytypeitem of competencytypes" [ngValue]="competencytypeitem" >{{competencytypeitem.description}}</option>
-   
-  </select>
+    <select [(ngModel)]="postdata.competencyclassid" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)"
+      class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+      <option *ngFor="let competencytypeitem of competencytypes" [ngValue]="competencytypeitem.id">{{competencytypeitem.description}}</option>
+
+    </select>
     <label>Competency Items</label>
-    <select [(ngModel)]="selectedCompetencyItem" name="competencytype" (ngModelChange)="onCompetencyItemSelected($event)" class="form-control select2 select2-hidden-accessible"
+    <select [(ngModel)]="postdata.lineitemid" name="competencytype" (ngModelChange)="onCompetencyItemSelected($event)" class="form-control select2 select2-hidden-accessible"
       style="width: 100%;" tabindex="-1" aria-hidden="true" required>
-  <option *ngFor="let competencyitem of defaultTemplate.lineitems" [ngValue]="competencyitem" >{{competencyitem.competencyitem}}</option>
-  
-  </select>
+      <option *ngFor="let competencyitem of defaultTemplate.lineitems" [ngValue]="competencyitem.id">{{competencyitem.competencyitem}}</option>
+
+    </select>
 
     <label>Action Plan</label>
 
-    <textarea class="form-control" rows="3" [(ngModel)]="myActionPlan" placeholder="Input Action Plan Here"> </textarea>
+    <textarea class="form-control" rows="3" [(ngModel)]="postdata.actionplandescription" placeholder="Input Action Plan Here"> </textarea>
     <button style="margin-top:35px; " type="submit" (click)="save()" class="btn btn-info pull-right fa-save">Save</button>
 
   </div>
@@ -74,7 +74,9 @@
         {{item.actionplandescription}}
       </td>
 
-      <td> <button type="submit" (click)="edit(item)" class="btn btn-info pull-right fa-save">Edit</button></td>
+      <td>
+        <button type="submit" (click)="edit(item)" class="btn btn-info pull-right fa-save">Edit</button>
+      </td>
     </tr>
     <tr>
 

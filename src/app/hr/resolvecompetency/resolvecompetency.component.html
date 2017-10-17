@@ -23,7 +23,7 @@
             <label>Competency Items</label>
             <select [(ngModel)]="selectedCompetencyItem" name="competencytype" (ngModelChange)="onCompetencyItemSelected($event)" class="form-control select2 select2-hidden-accessible"
               style="width: 100%;" tabindex="-1" aria-hidden="true" required>
-              <option *ngFor="let competencyitem of defaultTemplate.lineitems" [ngValue]="competencyitem">{{competencyitem.competencyitem}}</option>
+              <option *ngFor="let competencyitem of defaultTemplate?.lineitems" [ngValue]="competencyitem">{{competencyitem.competencyitem}}</option>
 
             </select>
           </div>
@@ -33,7 +33,7 @@
           <div class="form-group">
             <label>Competency Rating</label>
             <select class="form-control" [(ngModel)]="myScaleRating" name="myScaleRating" required>
-              <option value="{{item.rating}}" *ngFor="let item of defaultTemplate.competencyratingscale">{{item.description}}</option>
+              <option value="{{item.rating}}" *ngFor="let item of defaultTemplate?.competencyratingscale">{{item.description}}</option>
 
             </select>
           </div>
@@ -80,11 +80,11 @@
 
         <div class="info-box-content">
           <span class="info-box-text">Appraisal Period</span>
-          <span class="info-box-text">{{defaultTemplate.appraisalperiod}}</span>
+          <span class="info-box-text">{{defaultTemplate?.appraisalperiod}}</span>
 
 
           <span class="progress-description">
-            {{defaultTemplate.apprailsalperioddescription}}
+            {{defaultTemplate?.apprailsalperioddescription}}
           </span>
         </div>
         <!-- /.info-box-content -->
@@ -116,7 +116,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">{{defaultTemplate.appraisalheader || 'Appraisals'}}</h3>
+        <h3 class="box-title">{{defaultTemplate?.appraisalheader || 'Appraisals'}}</h3>
 
         <div class="box-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
@@ -132,7 +132,7 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive padding">
-        <table class="table table-hover" *ngFor="let item of defaultTemplate.lineitems">
+        <table class="table table-hover" *ngFor="let item of defaultTemplate?.lineitems">
           <tr>
             <th>Competency</th>
             <th>{{item.competencyitem}}</th>
@@ -160,7 +160,7 @@
           </tr>
         </table>
         <!-- <table class="table table-hover">
-          <div *ngFor="let item of defaultTemplate.lineitems">
+          <div *ngFor="let item of defaultTemplate?.lineitems">
             <tr>
               <th>Competency</th>
               <th>{{item.competencyitem}}</th>

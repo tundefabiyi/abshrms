@@ -1,0 +1,171 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="callout callout-info">
+      <h4>Attestation Status</h4>
+
+      <p>This result has been rejected by Jobholder</p>
+    </div>
+  </div>
+  <div class="col-md-6">
+
+    <button (click)="resolveCompetency()" href="#" class="btn btn-primary btn-block">
+      Resolve Competency
+    </button>
+
+    <button (click)="resolvePerformance()" href="#" class="btn btn-warning btn-block">
+      Resolve Performance
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3>Appraisal Result Summary</h3>
+
+        <div class="box-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body table-responsive padding" *ngFor="let item of currentAppraisal?.competencyappraisal">
+        <h3>{{item.appraisalheader}}</h3>
+        <table class="table table-hover" *ngFor="let line of item.lineitems">
+          <tr>
+            <th style="background-color:#C4E2FF">Compitency Item:</th>
+            <td style="background-color:#C4E2FF">{{line.competencyitem}}</td>
+            <th style="background-color:#C4E2FF">Proficiency Level:</th>
+            <td style="background-color:#C4E2FF">{{line.proficiencylevel}}</td>
+
+            <th>Job Holders Rating</th>
+            <th>Supervisors Rating</th>
+
+
+
+          </tr>
+
+          <tr style="background-color:lightgray">
+
+            <td>Compitency Description</td>
+
+            <td>
+              <ul>
+                <li *ngFor="let detail of line.competencyitemdetails">{{detail.description}}</li>
+              </ul>
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td style="background-color:#ffffff">{{line.jobholderrating.description}}</td>
+
+            <td style="background-color:#ffffff">{{line.supervisorrating.description}}</td>
+          </tr>
+
+        </table>
+        <!-- <table class="appraisaltable" class="table table-hover" *ngFor="let item of currentAppraisal?.competencyappraisal">
+          <caption>{{item.appraisalheader}}</caption>
+
+          <div *ngFor="let line of item.lineitems">
+            <tr>
+              <th style="background-color:#C4E2FF">Compitency Item:</th>
+              <td style="background-color:#C4E2FF">{{line.competencyitem}}</td>
+              <th style="background-color:#C4E2FF">Proficiency Level:</th>
+              <td style="background-color:#C4E2FF">{{line.proficiencylevel}}</td>
+
+              <th>Job Holders Rating</th>
+              <th>Supervisors Rating</th>
+
+
+
+            </tr>
+
+            <tr style="background-color:lightgray">
+
+              <td>Compitency Description</td>
+
+              <td>
+                <ul>
+                  <li *ngFor="let detail of line.competencyitemdetails">{{detail.description}}</li>
+                </ul>
+              </td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td style="background-color:#ffffff">{{line.jobholderrating.description}}</td>
+
+              <td style="background-color:#ffffff">{{line.supervisorrating.description}}</td>
+            </tr>
+          </div>
+
+
+        </table> -->
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+
+
+        <div class="box-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body table-responsive padding">
+        <table class="table table-hover" *ngFor="let item of currentAppraisal?.performanceappraisal">
+          <tr>
+            <th style="background-color:#FFB694">Performance Category:</th>
+            <td style="background-color:#FFB694">{{item.performancetype}}</td>
+
+
+          </tr>
+          <tr style="background-color:lightgray">
+
+            <th>Performance Line Item</th>
+
+
+            <th>Weight</th>
+            <th>Target</th>
+            <th>Actual Score</th>
+            <th>Comment</th>
+
+          </tr>
+
+          <tr *ngFor="let line of item.lineitems">
+
+            <td>{{line.kpi}}</td>
+            <td>{{line.weight}}</td>
+            <td>{{line.commitment}}</td>
+            <td>{{line.rating}}</td>
+            <td>{{line.comment}}</td>
+          </tr>
+
+
+        </table>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+
+
+  </div>
+</div>
