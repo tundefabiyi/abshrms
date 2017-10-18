@@ -1,4 +1,4 @@
-import { CompetencymeasurementService } from './../competencymeasurement/competencymeasurement.service';
+import { CompetencymeasurementService } from "./../competencymeasurement/competencymeasurement.service";
 import { Component, OnInit } from "@angular/core";
 import { PMSParametersService } from "../pmsparameters.service";
 import { AlertService } from "../../services/index";
@@ -10,13 +10,14 @@ import { Router } from "@angular/router";
 })
 export class FinalratingheadersetupComponent implements OnInit {
   loading = false;
-  competencytypes: any[] = [];
-  competencytemplates: any[] = [];
-  //measurementForm = {};
-  selectedCompetencyType;
+  templates: any[] = [];
+  applevels: any[] = [];
+  joblevels: any[] = [];
   description: string;
   selectedTemplate: any = {};
   editMode: boolean = false;
+  showJobLevels: boolean = false;
+  postdata: any;
 
   constructor(
     public router: Router,
@@ -26,11 +27,28 @@ export class FinalratingheadersetupComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //Fetch Competency Types
-    this.pMSParametersService.fetchCompetencyTypeList().subscribe(
+    this.postdata = {};
+    //Fetch Templates
+    this.pMSParametersService.getFinalRatingTemplates().subscribe(
       data => {
         this.loading = false;
-        this.competencytypes = JSON.parse(data.payload);
+        this.templates = JSON.parse(data.payload);
+
+        console.log(this.templates);
+      },
+      error => {
+        this.alertService.error(error);
+        this.loading = false;
+      }
+    );
+
+    //Fetch Application Levels
+    this.pMSParametersService.getApplicationLevels().subscribe(
+      data => {
+        this.loading = false;
+        this.applevels = JSON.parse(data.payload);
+
+        console.log(this.applevels);
       },
       error => {
         this.alertService.error(error);
@@ -39,22 +57,15 @@ export class FinalratingheadersetupComponent implements OnInit {
     );
   } //End ngOnInit
 
-  save() {
-    this.loading = true;
-
-    if (this.editMode) {
-      //Only the description is bbeing updated here
-      this.selectedTemplate.description = this.description;
-
-      this.competencyMeasurementService.update(this.selectedTemplate).subscribe(
+  onAppLevelSelected(applevelid) {
+    if (applevelid != 0) {
+      this.loading = true;
+      this.showJobLevels = true;
+      //Get Job Functions/ Job Positions
+      this.pMSParametersService.getApplicationJobLevels(applevelid).subscribe(
         data => {
-          //Get the updated list
-          console.log(data);
-          this.competencytemplates = JSON.parse(data.payload);
-
-          //Reset
-          this.editMode = false;
-          this.description = "";
+          this.joblevels = JSON.parse(data.payload);
+          this.loading = false;
         },
         error => {
           this.alertService.error(error);
@@ -62,18 +73,42 @@ export class FinalratingheadersetupComponent implements OnInit {
         }
       );
     } else {
-      this.competencyMeasurementService
-        .create({
-          competencytype: this.selectedCompetencyType.description,
-          description: this.description,
-          status: "Pending"
-        })
+      //Empty the job levels list if prepopulated
+      this.joblevels = [];
+      this.showJobLevels = false;
+    }
+  } //onAppLevelSelected
+
+  save() {
+    this.loading = true;
+
+    if (this.editMode) {
+      this.pMSParametersService
+        .saveFinalRatingTemplate(this.postdata)
+        .subscribe(
+          data => {
+            //Get the updated list
+            console.log(data);
+            this.templates = JSON.parse(data.payload);
+            console.log(this.templates);
+            //Reset
+            this.editMode = false;
+            this.postdata = {};
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          }
+        );
+    } else {
+      this.pMSParametersService
+        .saveFinalRatingTemplate(this.postdata)
         .subscribe(
           data => {
             this.loading = false;
             console.log(data);
-            this.competencytemplates = JSON.parse(data.payload);
-            this.description = "";
+            this.templates = JSON.parse(data.payload);
+            this.postdata = {};
           },
           error => {
             this.alertService.error(error);
@@ -85,17 +120,16 @@ export class FinalratingheadersetupComponent implements OnInit {
 
   edit(template: any) {
     this.editMode = true;
-    this.selectedTemplate = template;
-    this.description = template.description;
+    this.postdata = template;
   } //edit
 
   detail(template: object) {
-    this.competencyMeasurementService.selectedTemplate = template;
-    this.router.navigate(["/pmsparameters/competencytemplatedetail"]);
+    this.pMSParametersService.selectedFinalRatingTemplate = template;
+    this.router.navigate(["/pmsparameters/finalratingdetail"]);
   }
 
   manage(template: object) {
-    this.competencyMeasurementService.selectedTemplate = template;
-    this.router.navigate(["/pmsparameters/lineitemssetup"]);
+    this.pMSParametersService.selectedFinalRatingTemplate = template;
+    this.router.navigate(["/pmsparameters/finalratinglineitemssetup"]);
   }
 }

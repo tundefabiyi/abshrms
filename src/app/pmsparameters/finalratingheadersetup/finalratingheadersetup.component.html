@@ -1,34 +1,113 @@
 <div class="row">
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Final Ratings Template Header</h3>
-    </div>
+  <div class="col-md-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Final Ratings Template Header Setup</h3>
+      </div>
 
+      <div class="row">
+        <div class="col-md-6">
+          <form role="form" #f="ngForm">
+            <div class="box-body">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Template Header Title</label>
+                <input [(ngModel)]="postdata.headertitle" name="headertitle" class="form-control" placeholder="Description" required>
+              </div>
+              <div class="form-group">
+                <label>Application Level</label>
+                <select [(ngModel)]="postdata.applicationlevel" name="applicationlevel" (ngModelChange)="onAppLevelSelected($event)" class="form-control"
+                  required>
+                  <option *ngFor="let item of applevels" [ngValue]="item.id">{{item.description}}</option>
 
+                </select>
+              </div>
+              <div class="form-group" *ngIf="joblevels">
 
+                <select class="form-control" *ngIf="showJobLevels" [(ngModel)]="postdata.joblevel" name="joblevel" required>
+                  <option *ngFor="let item of joblevels" [ngValue]="item.id">{{item.description}}</option>
 
+                </select>
+              </div>
+            </div>
+            <!-- /.box-body -->
 
-    <form role="form">
-      <div class="box-body">
-        <div class="form-group col-md-6">
-          <label for="exampleInputEmail1">Description</label>
-          <input class="form-control" placeholder="Description">
+            <div class="box-footer">
+              <button [disabled]="!f.valid" (click)="save()" class="btn btn-primary">
+                <i class="fa fa-save"></i> Save
+              </button>
+            </div>
+          </form>
         </div>
-
-
+        <div class="col-md-6"></div>
       </div>
-      <!-- /.box-body -->
 
-      <div class="box-footer">
-        <button type="submit" class="btn btn-primary">Next</button>
-      </div>
-    </form>
-
-
-
-
-
-
+    </div>
   </div>
 
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">Final Rating Templates</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <table id="example1" class="table table-bordered table-striped dataTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                aria-describedby="example1_info">
+                <thead>
+                  <tr role="row">
+
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                      style="width: 223px;">
+                      Description
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                      style="width: 223px;">
+                      Status
+                    </th>
+
+
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                      style="width: 223px;">Edit</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                      style="width: 223px;">Detail</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending"
+                      style="width: 223px;">Manage</th>
+
+                  </tr>
+
+                </thead>
+                <tbody>
+                  <tr role="row" class="odd" *ngFor="let item of templates">
+                    <td>{{item.description }}</td>
+                    <td>{{item.status }}</td>
+
+                    <td>
+                      <button type="button" (click)="edit(item)" class="btn btn-info btn-flat">Edit</button>
+                    </td>
+                    <td>
+                      <button type="button" (click)="detail(item)" class="btn btn-info btn-flat">Detail</button>
+                    </td>
+                    <td>
+                      <button type="button" (click)="manage(item)" class="btn btn-info btn-flat">Manage</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- /.box-body -->
+    </div>
+  </div>
 </div>

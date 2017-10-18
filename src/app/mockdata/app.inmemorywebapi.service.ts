@@ -1,3 +1,5 @@
+import { jobfunctions } from "./hr/jobfunctions.model";
+import { finalratingtemplate } from "./pmsparameters/finalratingtemplate.model";
 import { appraisalsummaries } from "./hr/appraisalsummaries.model";
 import { appraisalperiods } from "./pmsparameters/appraisalperiods.model";
 import { appraisalsummary } from "./selfservice/appraisalsummary.model";
@@ -56,16 +58,16 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
 
     let measurementtemplateapplicationlevel = [
       {
-        id: 1,
+        id: 0,
         description: "Global"
       },
       {
-        id: 2,
-        description: "JobFunction"
+        id: 1,
+        description: "Job Function"
       },
       {
-        id: 3,
-        description: "Pending"
+        id: 2,
+        description: "Job Position"
       }
     ];
 
@@ -445,6 +447,7 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
       appraisalperiods,
       appraisalReviewPeriod,
       kpis,
+      measurementtemplateapplicationlevel,
       performancecategories,
       performancemeasurementtemplates,
       performancemeasurementtemplatelineitems,
@@ -480,6 +483,8 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
       return this.returnDataAsPayload(reqInfo, performanceratingscale);
     } else if (url === "api/savecompetencyrating") {
       return this.returnDataAsPayload(reqInfo, competencyratingscale);
+    }else if(url === "api/savefinalratingtemplate"){
+      return this.returnDataAsPayload(reqInfo, [finalratingtemplate]);
     }
 
     return undefined; // let the default GET handle all others
@@ -541,6 +546,12 @@ export class AppInMemoryWebAPIService implements InMemoryDbService {
       return this.returnDataAsPayload(reqInfo, appraisalperiods);
     } else if (url === "api/getcurrentappraisals") {
       return this.returnDataAsPayload(reqInfo, appraisalsummaries);
+    } else if (url === "api/getfinalappraisaltemplates") {
+      return this.returnDataAsPayload(reqInfo, [finalratingtemplate]);
+    } else if (url === "api/measurementtemplateapplicationlevel") {
+      return this.returnCollectionAsPayload(reqInfo);
+    } else if (url.indexOf("getapplicationjoblevels?applicationlevel=") != -1) {
+      return this.returnDataAsPayload(reqInfo, jobfunctions);
     }
     return undefined; // let the default GET handle all others
   } //get

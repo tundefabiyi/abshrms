@@ -5,6 +5,7 @@ import { AppraisalPeriod } from "./appraisalperiod.model";
 
 @Injectable()
 export class PMSParametersService {
+  selectedFinalRatingTemplate;
   private headers = new Headers({ "Content-Type": "application/json" });
   constructor(private http: Http) {}
 
@@ -149,4 +150,27 @@ export class PMSParametersService {
       return response.json();
     });
   } //setCurrentAppraisalPeriod
+
+  getFinalRatingTemplates() {
+    var url = "api/getfinalappraisaltemplates";
+    return this.http.get(url).map((response: Response) => response.json());
+  } //getFinalRatingTemplates
+
+  getApplicationLevels() {
+    var url = "api/measurementtemplateapplicationlevel";
+    return this.http.get(url).map((response: Response) => response.json());
+  } //getApplicationLevels
+
+  //Gets either job function or job position id based on application level selected
+  getApplicationJobLevels(applicationlevel) {
+    var url = `api/getapplicationjoblevels?applicationlevel=${applicationlevel}`;
+    return this.http.get(url).map((response: Response) => response.json());
+  } //getApplicationJobLevel
+
+  saveFinalRatingTemplate(details: any) {
+    var url = "api/savefinalratingtemplate";
+    return this.http
+      .post(url, details)
+      .map((response: Response) => response.json());
+  } //saveFinalRatingTemplate
 }
