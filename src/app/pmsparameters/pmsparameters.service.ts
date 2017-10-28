@@ -69,22 +69,17 @@ export class PMSParametersService {
     });
   } //fetchCompetencyItemDetails
 
-  createCompetencyItem(
-    competencytypeId: string,
-    code: string,
-    description: string,
-    percentage: string
-  ) {
+  createCompetencyItem(data) {
     //var url = `${webapibaseurl}pmsparameters/createCompetencyItem`;
-    var url = "api/competencyitems";
-    var body = { competencytypeId, code, description, percentage };
+    var url = "api/createcompetencyitem";
+    var body = data;
     return this.http
       .post(url, body)
-      .map((response: Response) => response.json().data);
+      .map((response: Response) => response.json());
   }
-  updateCompetecyitem(id: string, description: string, percentage: string) {
+  updateCompetecyitem(data) {
     var url = `${webapibaseurl}pmsparameters/updateCompetecyitem`;
-    var body = { id, description, percentage };
+    var body = data;
     return this.http
       .post(url, body)
       .map((response: Response) => response.json());

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { PMSParametersService } from "../pmsparameters.service";
 import { AlertService } from "../../services/index";
+import _ from "lodash";
 
 @Component({
   moduleId: module.id.toString(),
@@ -21,6 +22,7 @@ export class CompetencyItemSetupComponent implements OnInit {
   rowsOnPage = 10;
   sortBy = "description";
   sortOrder = "asc";
+  postdata: any = {};
   constructor(
     private pMSParametersService: PMSParametersService,
     private alertService: AlertService
@@ -29,7 +31,7 @@ export class CompetencyItemSetupComponent implements OnInit {
     this.pMSParametersService.fetchCompetencyTypeList().subscribe(
       data => {
         this.loading = false;
-        this.competencytypelist = data.itemlist;
+        this.competencytypelist = JSON.parse(data.payload);
       },
       error => {
         this.alertService.error(error);
@@ -39,13 +41,14 @@ export class CompetencyItemSetupComponent implements OnInit {
   }
 
   onCompetencytypeSelected(selecteditem) {
+    this.postdata.competencytypeid = selecteditem.id;
     //  $event.preventDefault();
     this.loading = true;
 
-    this.selectedCompetencytype = selecteditem;
-    console.log(
-      "selected: " + selecteditem.id + " " + selecteditem.description
-    );
+    this.selectedcompetencyitem = _.find(this.competencytypelist, {
+      id: selecteditem.id
+    });
+
     this.pMSParametersService
       .fetchCompetencyItemList(selecteditem.id)
       .subscribe(
@@ -54,7 +57,7 @@ export class CompetencyItemSetupComponent implements OnInit {
             this.loading = false;
           }, 40000);
           this.loading = false;
-          this.data = data.itemlist;
+          this.data = JSON.parse(data.payload);
         },
         error => {
           this.alertService.error(error);
@@ -63,57 +66,50 @@ export class CompetencyItemSetupComponent implements OnInit {
       );
   }
   save() {
+    console.log(this.postdata);
     this.loading = true;
     if (this.isinSelectionMode == false) {
-      this.pMSParametersService
-        .createCompetencyItem(
-          this.selectedCompetencytype.id,
-          this.code,
-          this.description,
-          this.percentage
-        )
-        .subscribe(
-          data => {
+      this.pMSParametersService.createCompetencyItem(this.postdata).subscribe(
+        data => {
+          if (data.issuccessfull) {
             this.loading = false;
-            this.data.push(data);
-            this.code = "";
-            this.description = "";
-            this.percentage = "";
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
+            this.data = JSON.parse(data.payload);
+            this.postdata = {};
+          } else {
+            this.handleError(data.errormsg);
           }
-        );
+        },
+        error => {
+          this.handleError(error);
+        }
+      );
     } else {
-      this.pMSParametersService
-        .updateCompetecyitem(
-          this.selectedcompetencyitem.id,
-          this.description,
-          this.percentage
-        )
-        .subscribe(
-          data => {
+      this.pMSParametersService.updateCompetecyitem(this.postdata).subscribe(
+        data => {
+          this.loading = false;
+          this.isinSelectionMode = false;
+
+          if (data.issuccessfull) {
             this.loading = false;
-            this.data = data.itemlist;
-            this.selectedcompetencyitem = {};
-            this.isinSelectionMode = false;
-            this.code = "";
-            this.description = "";
-            this.percentage = "";
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
+            this.data = JSON.parse(data.payload);
+            this.postdata = {};
+          } else {
+            this.handleError(data.errormsg);
           }
-        );
+        },
+        error => {
+          this.handleError(error);
+        }
+      );
     }
   }
   oncompetencyitemselected(selectedcompetencyitem: any) {
-    this.selectedcompetencyitem = selectedcompetencyitem;
-    this.code = selectedcompetencyitem.code;
-    this.description = selectedcompetencyitem.description;
-    this.percentage = selectedcompetencyitem.percentage;
+    this.postdata = selectedcompetencyitem;
     this.isinSelectionMode = true;
   }
+
+  handleError(error) {
+    this.alertService.error(error);
+    this.loading = false;
+  } //handleError
 }

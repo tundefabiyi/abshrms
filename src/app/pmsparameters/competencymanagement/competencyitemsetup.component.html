@@ -13,11 +13,11 @@
                 <label for="competencyType" class="col-sm-2 control-label">Competency Type</label>
 
                 <div class="col-sm-10">
-                    <select [(ngModel)]="selectedCompetencytype" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)" class="form-control select2 select2-hidden-accessible"
+                    <select [(ngModel)]="selectedCompetencyType" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)" class="form-control select2 select2-hidden-accessible"
                         style="width: 100%;" tabindex="-1" aria-hidden="true">
-                  <option *ngFor="let competencytypeitem of competencytypelist" [ngValue]="competencytypeitem" >{{competencytypeitem.description}}</option>
-                 
-                </select>
+                        <option *ngFor="let competencytypeitem of competencytypelist" [ngValue]="competencytypeitem">{{competencytypeitem.description}}</option>
+
+                    </select>
                     <!--<span class="select2 select2-container select2-container--default select2-container--below"
                         dir="ltr" style="width: 100%;"><span class="selection">
                             <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-ku3z-container"><span class="select2-selection__rendered" id="select2-ku3z-container" title="competencytypeitem.description">{{competencytypeitem.description}}</span>
@@ -29,21 +29,21 @@
             <div class="form-group">
                 <label for="code" class="col-sm-2 control-label">Code</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="code" [(ngModel)]="code" placeholder="Code">
+                    <input type="text" class="form-control" name="code" [(ngModel)]="postdata.code" placeholder="Code">
                 </div>
             </div>
             <div class="form-group">
                 <label for="description" class="col-sm-2 control-label">Description</label>
 
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" [(ngModel)]="description" name="description" placeholder="Description">
+                    <input type="text" class="form-control" [(ngModel)]="postdata.description" name="description" placeholder="Description">
                 </div>
             </div>
             <div class="form-group">
                 <label for="percentage" class="col-sm-2 control-label">Percentage%</label>
 
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" [(ngModel)]="percentage" name="percentage" placeholder="Percentage">
+                    <input type="text" class="form-control" [(ngModel)]="postdata.percentage" name="percentage" placeholder="Percentage">
                 </div>
             </div>
         </div>
@@ -100,7 +100,9 @@
                                 <td class="sorting_1">{{item.code}}</td>
                                 <td class="sorting_1">{{item.description}}</td>
                                 <td>{{item.percentage}}</td>
-                                <td><button type="button" (click)="oncompetencyitemselected(item)" class="btn btn-info btn-flat">...</button></td>
+                                <td>
+                                    <button type="button" (click)="oncompetencyitemselected(item)" class="btn btn-info btn-flat">...</button>
+                                </td>
                             </tr>
 
                         </tbody>
