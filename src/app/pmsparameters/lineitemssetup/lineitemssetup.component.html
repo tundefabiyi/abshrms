@@ -18,16 +18,16 @@
 
         <select [(ngModel)]="selectedCompetencyitem" name="competencyitem" (ngModelChange)="onCompetencyitemSelected($event)" class="form-control select2 select2-hidden-accessible"
           style="width: 100%;" tabindex="-1" aria-hidden="true">
-            <option *ngFor="let competencyitem of competencyitems" [ngValue]="competencyitem" >{{competencyitem.description}}</option>
-           
+          <option *ngFor="let competencyitem of competencyitems" [ngValue]="competencyitem">{{competencyitem.description}}</option>
+
         </select>
 
         <label>Proficiency Level</label>
 
         <select [(ngModel)]="selectedProficiencytype" name="proficiencytype" (ngModelChange)="onProficiencytypeSelected($event)"
           class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-          <option *ngFor="let proficiencytype of proficiencytypes" [ngValue]="proficiencytype" >{{proficiencytype.description}}</option>
-         
+          <option *ngFor="let proficiencytype of proficiencytypes" [ngValue]="proficiencytype">{{proficiencytype.description}}</option>
+
         </select>
 
 
@@ -78,9 +78,15 @@
                 <td>{{item.competencyitem }}</td>
                 <td>{{item.proficiencylevel }}</td>
 
-                <td><button type="button" (click)="edit(item)" class="btn btn-info btn-flat">Edit</button></td>
-                <td><button type="button" (click)="detail(item)" class="btn btn-info btn-flat">Detail</button></td>
-                <td><button type="button" (click)="manage(item)" class="btn btn-info btn-flat">Manage</button></td>
+                <td>
+                  <button type="button" (click)="edit(item)" class="btn btn-info btn-flat">Edit</button>
+                </td>
+                <td>
+                  <button type="button" (click)="detail(item)" class="btn btn-info btn-flat">Detail</button>
+                </td>
+                <td>
+                  <button type="button" (click)="manage(item)" class="btn btn-info btn-flat">Manage</button>
+                </td>
               </tr>
 
             </tbody>

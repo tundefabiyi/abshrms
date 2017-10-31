@@ -8,12 +8,12 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Description</label>
-                <textarea class="form-control" [(ngModel)]="detaildescription" name="detaildescription" placeholder="Enter ..."></textarea>
+                <textarea class="form-control" [(ngModel)]="postdata.description" name="detaildescription" placeholder="Enter ..."></textarea>
             </div>
             <!-- textarea -->
             <div class="form-group">
                 <label>Order Nos</label>
-                <input type="text" class="form-control" rows="3" [(ngModel)]="detailordernos" name="detailordernos" placeholder="Enter ...">
+                <input type="text" class="form-control" rows="3" [(ngModel)]="postdata.ordernos" name="detailordernos" placeholder="Enter ...">
             </div>
             <button type="submit" (click)="save()" class="btn btn-info pull-right fa-save">Save</button>
         </form>
@@ -57,7 +57,9 @@
                                 <td>{{item.description }}</td>
                                 <td>{{item.ordernos }}</td>
 
-                                <td><button type="button" (click)="onselectcompetencydetailitem(item)" class="btn btn-info btn-flat">...</button></td>
+                                <td>
+                                    <button type="button" (click)="onselectcompetencydetailitem(item)" class="btn btn-info btn-flat">...</button>
+                                </td>
                             </tr>
 
                         </tbody>

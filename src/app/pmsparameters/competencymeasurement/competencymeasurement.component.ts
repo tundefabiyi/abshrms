@@ -18,6 +18,7 @@ export class CompetencymeasurementComponent implements OnInit {
   description: string;
   selectedTemplate: any = {};
   editMode: boolean = false;
+  postdata: any = {};
 
   constructor(
     public router: Router,
@@ -28,25 +29,33 @@ export class CompetencymeasurementComponent implements OnInit {
 
   ngOnInit() {
     //Fetch Competency Types
-    this.pMSParametersService.fetchCompetencyTypeList().subscribe(
+    this.competencyMeasurementService.fetchCompetencyClassList().subscribe(
       data => {
         this.loading = false;
-        this.competencytypes = JSON.parse(data.payload);
+        if (data.issuccessfull) {
+          this.competencytypes = JSON.parse(data.payload);
+        } else {
+          this.handleError(data.errormsg);
+        }
       },
       error => {
-        this.alertService.error(error);
-        this.loading = false;
+        this.handleError(error);
       }
     );
   } //End ngOnInit
 
   onCompetencytypeSelected(selectedtype) {
     this.loading = true;
+    this.postdata.competencyclassid = selectedtype.id;
     //Fetch Competency Templates
-    this.competencyMeasurementService.fetchTemplates(selectedtype).subscribe(
+    this.competencyMeasurementService.fetchTemplates(selectedtype.id).subscribe(
       data => {
-        this.loading = false;
-        this.competencytemplates = JSON.parse(data.payload);
+        if (data.issuccessfull) {
+          this.loading = false;
+          this.competencytemplates = JSON.parse(data.payload);
+        } else {
+          this.handleError(data.errormsg);
+        }
       },
       error => {
         this.alertService.error(error);
@@ -59,50 +68,52 @@ export class CompetencymeasurementComponent implements OnInit {
     this.loading = true;
 
     if (this.editMode) {
-      //Only the description is bbeing updated here
-      this.selectedTemplate.description = this.description;
+      //Update the description
+      this.selectedTemplate.description = this.postdata.description;
 
       this.competencyMeasurementService.update(this.selectedTemplate).subscribe(
         data => {
-          //Get the updated list
-          console.log(data);
-          this.competencytemplates = JSON.parse(data.payload);
+          this.loading = false;
+          if (data.issuccessfull) {
+            //Get the updated list
+            console.log(data);
+            this.competencytemplates = JSON.parse(data.payload);
 
-          //Reset
-          this.editMode = false;
-          this.description = "";
+            //Reset
+            this.editMode = false;
+            this.postdata = {};
+          } else {
+            this.handleError(data.errormsg);
+          }
         },
         error => {
-          this.alertService.error(error);
-          this.loading = false;
+          this.handleError(error);
         }
       );
     } else {
-      this.competencyMeasurementService
-        .create({
-          competencytype: this.selectedCompetencyType.description,
-          description: this.description,
-          status: "Pending"
-        })
-        .subscribe(
-          data => {
-            this.loading = false;
+      this.competencyMeasurementService.create(this.postdata).subscribe(
+        data => {
+          this.loading = false;
+
+          if (data.issuccessfull) {
             console.log(data);
             this.competencytemplates = JSON.parse(data.payload);
             this.description = "";
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
+          } else {
+            this.handleError(data.errormsg);
           }
-        );
+        },
+        error => {
+          this.handleError(error);
+        }
+      );
     }
   } //end save
 
   edit(template: any) {
     this.editMode = true;
     this.selectedTemplate = template;
-    this.description = template.description;
+    this.postdata.description = this.selectedTemplate.description;
   } //edit
 
   detail(template: object) {
@@ -114,4 +125,9 @@ export class CompetencymeasurementComponent implements OnInit {
     this.competencyMeasurementService.selectedTemplate = template;
     this.router.navigate(["/pmsparameters/lineitemssetup"]);
   }
+
+  handleError(error) {
+    this.alertService.error(error);
+    this.loading = false;
+  } //handleError
 }

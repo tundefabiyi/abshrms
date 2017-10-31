@@ -22,6 +22,7 @@ export class LineitemssetupComponent implements OnInit {
   //Form Values
   selectedCompetencyitem;
   selectedProficiencytype;
+  postdata: any = {};
 
   constructor(
     public router: Router,
@@ -33,15 +34,18 @@ export class LineitemssetupComponent implements OnInit {
   ngOnInit() {
     //Fetch the Competency Items
     this.pMSParametersService
-      .fetchCompetencyItemList(this.competencyTemplate.competencytype)
+      .fetchCompetencyItemList(this.competencyTemplate.id)
       .subscribe(
         data => {
           this.loading = false;
-          this.competencyitems = JSON.parse(data.payload);
+          if (data.issuccessfull) {
+            this.competencyitems = JSON.parse(data.payload);
+          } else {
+            this.handleError(data.errormsg);
+          }
         },
         error => {
-          this.alertService.error(error);
-          this.loading = false;
+          this.handleError(error);
         }
       );
 
@@ -49,8 +53,12 @@ export class LineitemssetupComponent implements OnInit {
     this.pMSParametersService.getProficiencyTypes().subscribe(
       data => {
         this.loading = false;
-        this.proficiencytypes = JSON.parse(data.payload);
-        console.log(this.proficiencytypes);
+        if (data.issuccessfull) {
+          this.proficiencytypes = JSON.parse(data.payload);
+          console.log(this.proficiencytypes);
+        } else {
+          this.handleError(data.errormsg);
+        }
       },
       error => {
         this.alertService.error(error);
@@ -61,32 +69,36 @@ export class LineitemssetupComponent implements OnInit {
     this.competencyTemplate.lineitems = this.competencyTemplate.lineitems || [];
   }
 
-  onCompetencyitemSelected(selectedItem) {} //onCompetencyitemSelected
+  onCompetencyitemSelected(selectedItem) {
+    this.postdata.competencyitemid = selectedItem.id;
+  } //onCompetencyitemSelected
 
-  onProficiencytypeSelected(selectedProficiency) {} //onProficiencytypeSelected
+  onProficiencytypeSelected(selectedProficiency) {
+    this.postdata.proficiencylevelid = selectedProficiency.id;
+  } //onProficiencytypeSelected
 
   save() {
+    this.loading = true;
     if (!this.editMode) {
       //Create New
-
-      var lineItemCreated = {
-        id: this.competencyTemplate.lineitems.length + 1, //Increment id
-        competencyitem: this.selectedCompetencyitem.description,
-        proficiencylevel: this.selectedProficiencytype.description
-      };
+      this.postdata.competencyitemid = this.competencyTemplate.id;
 
       //Update template by adding new lineitem
       this.competencyMeasurementService
-        .updateSingleTemplate(lineItemCreated)
+        .createCompetencyLineItem(this.postdata)
         .subscribe(
           data => {
-            //Return the updated template
-            this.competencyTemplate = JSON.parse(data.payload);
-            console.log(this.competencyTemplate);
+            this.loading = false;
+            if (data.issuccessfull) {
+              //Return the updated template
+              this.competencyTemplate = JSON.parse(data.payload);
+              console.log(this.competencyTemplate);
+            } else {
+              this.handleError(data.errormsg);
+            }
           },
           error => {
-            this.alertService.error(error);
-            this.loading = false;
+            this.handleError(error);
           }
         );
     } else {
@@ -94,16 +106,20 @@ export class LineitemssetupComponent implements OnInit {
 
       //Update template by updating updated lineitem
       this.competencyMeasurementService
-        .updateSingleTemplate(this.competencyTemplate)
+        .updateCompetencyLineItem(this.selectedlineitem)
         .subscribe(
           data => {
-            //Return the updated template
-            this.competencyTemplate = JSON.parse(data.payload);
-            console.log(this.competencyTemplate);
+            this.loading = false;
+            if (data.issuccessfull) {
+              //Return the updated template
+              this.competencyTemplate = JSON.parse(data.payload);
+              console.log(this.competencyTemplate);
+            } else {
+              this.handleError(data.errormsg);
+            }
           },
           error => {
-            this.alertService.error(error);
-            this.loading = false;
+            this.handleError(error);
           }
         );
     }
@@ -132,4 +148,9 @@ export class LineitemssetupComponent implements OnInit {
     this.competencyMeasurementService.selectedTemplate = this.competencyTemplate;
     this.router.navigate(["/pmsparameters/addcompetencyitemdetail"]);
   } //manage
+
+  handleError(error) {
+    this.alertService.error(error);
+    this.loading = false;
+  } //handleError
 }

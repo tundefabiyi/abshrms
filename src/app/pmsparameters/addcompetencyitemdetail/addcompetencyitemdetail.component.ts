@@ -16,6 +16,7 @@ export class AddcompetencyitemdetailComponent implements OnInit {
   competencyitemdetails: any[] = [];
   loading: boolean = false;
   selectedCompetencyitemDetail: any;
+  postdata: any = {};
 
   constructor(
     public router: Router,
@@ -25,15 +26,21 @@ export class AddcompetencyitemdetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //Set the id of the lineitem
+    this.postdata.competencytemplatelineitemid = this.competencyMeasurementService.selectedLineitem.id;
     //Fetch Competency Item Details
+    this.loading = true;
     this.pMSParametersService.fetchCompetencyItemDetails().subscribe(
       data => {
         this.loading = false;
-        this.competencyitemdetails = JSON.parse(data.payload);
+        if (data.issuccessfull) {
+          this.competencyitemdetails = JSON.parse(data.payload);
+        } else {
+          this.handleError(data.errorMsg);
+        }
       },
       error => {
-        this.alertService.error(error);
-        this.loading = false;
+        this.handleError(error);
       }
     );
 
@@ -42,22 +49,55 @@ export class AddcompetencyitemdetailComponent implements OnInit {
       this.lineitem.competencyitemdetails || [];
   }
 
-  onCompetencyitemDetailSelected(selecteddetail) {} //onCompetencyitemDetailSelected
+  onCompetencyitemDetailSelected(selecteddetail) {
+    this.postdata.competencyitemdetailid = selecteddetail.id;
+  } //onCompetencyitemDetailSelected
 
   save() {
+    this.loading = true;
     //Check if this item already exists
-    //Update template
+    //Create Item Detail
     this.competencyMeasurementService
-      .updateSingleTemplate(this.selectedCompetencyitemDetail)
+      .createCompetencyTemplateLineItemDetail(this.postdata)
       .subscribe(
         data => {
+          this.loading = false;
           //Return Updated template
-          this.competencyTemplate = JSON.parse(data.payload);
+          if (data.issuccessfull) {
+            this.competencyTemplate = JSON.parse(data.payload);
+          } else {
+            this.handleError(data.errorMsg);
+          }
         },
         error => {
-          this.alertService.error(error);
-          this.loading = false;
+          this.handleError(error);
         }
       );
   } //save
+
+  delete(itemdetail) {
+    if (confirm("Are you sure you want to delele this detail?")) {
+      this.loading = true;
+      this.competencyMeasurementService
+        .deleteCompetencyTemplateLineItemDetail(itemdetail.id)
+        .subscribe(
+          data => {
+            this.loading = false;
+            if (data.issuccessfull) {
+              this.competencyTemplate = JSON.parse(data.payload);
+            } else {
+              this.handleError(data.errorMsg);
+            }
+          },
+          error => {
+            this.handleError(error);
+          }
+        );
+    }
+  } //delete
+
+  handleError(error) {
+    this.alertService.error(error);
+    this.loading = false;
+  } //handleError
 }

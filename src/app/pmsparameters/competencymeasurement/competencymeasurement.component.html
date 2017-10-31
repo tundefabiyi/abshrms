@@ -4,28 +4,28 @@
   </div>
   <!-- /.box-header -->
   <div class="box-body">
-    <form role="form">
+    <form role="form" #f="ngForm">
       <!-- text input -->
 
 
       <div class="form-group">
         <label>Competency Type</label>
-        <select [(ngModel)]="selectedCompetencyType" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)" class="form-control select2 select2-hidden-accessible"
-          style="width: 100%;" tabindex="-1" aria-hidden="true">
-  <option *ngFor="let competencytypeitem of competencytypes" [ngValue]="competencytypeitem" >{{competencytypeitem.description}}</option>
- 
-</select>
+        <select [(ngModel)]="postdata.competencyclassid" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)"
+          class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+          <option *ngFor="let competencytypeitem of competencytypes" [ngValue]="competencytypeitem">{{competencytypeitem.description}}</option>
+
+        </select>
       </div>
       <div class="form-group">
 
 
 
         <label>Description</label>
-        <textarea class="form-control" [(ngModel)]="description" name="description" placeholder="Enter ..."></textarea>
+        <textarea class="form-control" [(ngModel)]="postdata.description" name="description" placeholder="Enter ..." required></textarea>
       </div>
       <!-- textarea -->
 
-      <button type="submit" (click)="save()" class="btn btn-info pull-right fa-save">Save</button>
+      <button type="submit" [disabled]="!f.valid" (click)="save()" class="btn btn-info pull-right fa-save">Save</button>
     </form>
   </div>
   <!-- /.box-body -->
@@ -71,9 +71,15 @@
                 <td>{{item.description }}</td>
                 <td>{{item.status }}</td>
 
-                <td><button type="button" (click)="edit(item)" class="btn btn-info btn-flat">Edit</button></td>
-                <td><button type="button" (click)="detail(item)" class="btn btn-info btn-flat">Detail</button></td>
-                <td><button type="button" (click)="manage(item)" class="btn btn-info btn-flat">Manage</button></td>
+                <td>
+                  <button type="button" (click)="edit(item)" class="btn btn-info btn-flat">Edit</button>
+                </td>
+                <td>
+                  <button type="button" (click)="detail(item)" class="btn btn-info btn-flat">Detail</button>
+                </td>
+                <td>
+                  <button type="button" (click)="manage(item)" class="btn btn-info btn-flat">Manage</button>
+                </td>
               </tr>
 
             </tbody>

@@ -41,8 +41,8 @@ export class PMSParametersService {
   } //getperformancecategories
 
   fetchCompetencyTypeList() {
-    //var url = `${webapibaseurl}pmsparameters/fetchCompetencyTypeList`;
-    var url = "api/competencytypes";
+    var url = `${webapibaseurl}pmsparameters/fetchCompetencyTypeList`;
+    //var url = "api/competencytypes";
     return this.http.get(url).map((response: Response) => {
       console.log(response.json());
 
@@ -50,8 +50,8 @@ export class PMSParametersService {
     });
   }
   fetchCompetencyItemList(competencytypeid: string) {
-    //var url = `${webapibaseurl}pmsparameters/fetchCompetencyItemList?competencytypeid=${competencytypeid}`;
-    var url = `api/competencyitems?competencytypeid=${competencytypeid}`;
+    var url = `${webapibaseurl}pmsparameters/fetchCompetencyItemList?competencytypeid=${competencytypeid}`;
+    //var url = `api/competencyitems?competencytypeid=${competencytypeid}`;
     return this.http.get(url).map((response: Response) => {
       console.log(response.json());
 
@@ -60,8 +60,8 @@ export class PMSParametersService {
   }
 
   fetchCompetencyItemDetails() {
-    //var url = `${webapibaseurl}pmsparameters/fetchCompetencyTypeList`;
-    var url = "api/competencyitemdetails";
+    var url = `${webapibaseurl}pmsparameters/getCompetencyItemDetails`;
+    //var url = "api/competencyitemdetails";
     return this.http.get(url).map((response: Response) => {
       console.log(response.json());
 
@@ -70,15 +70,15 @@ export class PMSParametersService {
   } //fetchCompetencyItemDetails
 
   createCompetencyItem(data) {
-    //var url = `${webapibaseurl}pmsparameters/createCompetencyItem`;
-    var url = "api/createcompetencyitem";
+    var url = `${webapibaseurl}pmsparameters/createCompetencyItem`;
+    //var url = "api/createcompetencyitem";
     var body = data;
     return this.http
       .post(url, body)
       .map((response: Response) => response.json());
   }
   updateCompetecyitem(data) {
-    var url = `${webapibaseurl}pmsparameters/updateCompetecyitem`;
+    var url = `${webapibaseurl}pmsparameters/updateCompetencyItem`;
     var body = data;
     return this.http
       .post(url, body)
@@ -105,7 +105,7 @@ export class PMSParametersService {
   }
 
   getProficiencyTypes() {
-    var url = "api/proficiencytypes";
+    var url = `${webapibaseurl}pmsparameters/getProficiencyLevelList`;
     return this.http.get(url).map((response: Response) => response.json());
   }
 
