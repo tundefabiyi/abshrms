@@ -4,24 +4,26 @@ import { webapibaseurl } from "../../app.model";
 
 @Injectable()
 export class CompetencyItemDetailSetupService {
-  private Url = "api/competencyitemdetails";
+  private Url = `${webapibaseurl}pmsparameters/`;
   private headers = new Headers({ "Content-Type": "application/json" });
   constructor(private http: Http) {}
 
   getlist() {
-    var url = `${webapibaseurl}pmsparameters/fetchCompetencyItemDetailList`;
+    var url = `${this.Url}fetchCompetencyItemDetailList`;
 
-    return this.http.get(this.Url).map((response: Response) => response.json());
+    return this.http.get(url).map((response: Response) => response.json());
   }
 
   create(competencyitemdetail: any) {
+    let url = `${this.Url}createCompetencyItemDetail`;
     return this.http
-      .post(this.Url, competencyitemdetail)
+      .post(url, competencyitemdetail)
       .map((response: Response) => response.json());
   }
   update(competencyitemdetail: any) {
+    let url = `${this.Url}updateCompetencyItemDetail`;
     return this.http
-      .post(this.Url, competencyitemdetail)
+      .post(url, competencyitemdetail)
       .map((response: Response) => response.json());
   }
   private handleError(error: any): Promise<any> {

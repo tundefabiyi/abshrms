@@ -14,20 +14,20 @@
             <label>KPI</label>
             <select [(ngModel)]="selectedKpi" name="kpi" (ngModelChange)="onKpiSelected($event)" class="form-control select2 select2-hidden-accessible"
               style="width: 100%;" tabindex="-1" aria-hidden="true">
-          <option *ngFor="let kpi of kpis" [ngValue]="kpi" >{{kpi.description}}</option>
-          
-          </select>
+              <option *ngFor="let kpi of kpis" [ngValue]="kpi">{{kpi.description}}</option>
+
+            </select>
 
             <label>Weight</label>
-            <input type="number" [(ngModel)]="weight" name="weight" class="form-control" id="weightField" placeholder="Weight">
+            <input type="number" [(ngModel)]="postdata.weight" name="weight" class="form-control" id="weightField" placeholder="Weight">
 
 
 
           </div>
           <div class="box-footer">
             <a class="btn btn-app" (click)="save()" style="background-color:dodgerblue;color:white;">
-                           <i class="fa fa-save"></i> Save
-                         </a>
+              <i class="fa fa-save"></i> Save
+            </a>
           </div>
 
           <!-- /.box -->
@@ -113,7 +113,9 @@
       <td>{{item.weight}}</td>
 
 
-      <!-- <td> <button type="submit" (click)="delete(item)" class="btn btn-info pull-right fa-save">Delete</button></td> -->
+      <td>
+        <button type="submit" (click)="edit(item)" class="btn btn-success pull-right fa-save">Edit</button>
+      </td>
     </tr>
     <tr>
 

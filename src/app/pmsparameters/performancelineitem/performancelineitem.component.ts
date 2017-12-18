@@ -15,6 +15,8 @@ export class PerformancelineitemComponent implements OnInit {
   loading: boolean = false;
   selectedKpi: any;
   weight: number;
+  postdata: any = {};
+  editMode: boolean = false;
   constructor(
     private performanceservice: PerformanceService,
     private pMSParametersService: PMSParametersService,
@@ -23,17 +25,21 @@ export class PerformancelineitemComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.template);
-
+    this.postdata.performancetemplateid = this.template.id;
+    this.loading = true;
     //Load Kpis
     this.pMSParametersService.getkpilist().subscribe(
       data => {
-        this.kpis = JSON.parse(data.payload);
-        console.log(this.kpis);
         this.loading = false;
+        if (data.issuccessfull) {
+          this.kpis = JSON.parse(data.payload);
+          console.log(this.kpis);
+        } else {
+          this.handleError(data.errorMsg);
+        }
       },
       error => {
-        this.alertService.error(error);
-        this.loading = false;
+        this.handleError(error);
       }
     );
 
@@ -47,27 +53,26 @@ export class PerformancelineitemComponent implements OnInit {
     });
   } //getPerformanceCategory
 
-  onKpiSelected() {} //onKpiSelected
+  onKpiSelected(selectedKpi) {
+    this.postdata.kpiid = selectedKpi.id;
+  } //onKpiSelected
 
   save() {
-    var lineItemCreated = {
-      id: this.template.lineitems.length + 1, //Increment id
-      performancemeasurementtemplateid: this.template.id,
-      kpiid: this.selectedKpi.id,
-      weight: this.weight
-    };
+    this.loading = true;
 
     //Update template
-    this.performanceservice.updateTemplate(lineItemCreated).subscribe(
-      data => {
-        //Get the updated template
-        this.template = JSON.parse(data.payload);
-      },
-      error => {
-        this.alertService.error(error);
-        this.loading = false;
-      }
-    );
+    this.performanceservice
+      .createPerformanceTemplateLineItem(this.postdata)
+      .subscribe(
+        data => {
+          //Get the updated template
+          this.template = JSON.parse(data.payload);
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      );
   } //save
 
   getKPI(kpiid) {
@@ -76,7 +81,15 @@ export class PerformancelineitemComponent implements OnInit {
     });
   } //getKPI
 
-  delete(lineitem) {
+  edit(lineitem) {
+    this.selectedKpi = _.find(this.kpis, {
+      id: lineitem.kpiid
+    });
+
+    this.postdata.weight = lineitem.weight;
+  } //edit
+
+  /* delete(lineitem) {
     const templateBeforeEdit = Object.assign({}, this.template);
 
     const reducedLineItems = _.filter(this.template.lineitems, item => {
@@ -99,5 +112,10 @@ export class PerformancelineitemComponent implements OnInit {
         this.template = templateBeforeEdit;
       }
     );
-  } //delete
+  } //delete */
+
+  handleError(error) {
+    this.alertService.error(error);
+    this.loading = false;
+  } //handleError
 }

@@ -18,9 +18,10 @@ export class SetgoalsComponent implements OnInit {
   actionplans: any[] = [];
   competencytemplates: any[] = [];
   competencytypes: any[] = [];
+  competencyitems: any[] = [];
   defaultTemplate = { id: "", lineitems: [] };
   editMode: boolean = false;
-  selectedActionPlan;
+  selectedActionPlan: any = {};
   postdata: any = {};
 
   constructor(
@@ -31,71 +32,113 @@ export class SetgoalsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //Set Goal Setting Form Id
+    this.postdata.goalsettingformid = this.selfservice.goalsettingformid;
     this.selectedCompetencyItem = {};
     //this.actionplan = {};
     //Fetch Competency Types
-    this.pMSParametersService.fetchCompetencyTypeList().subscribe(
+
+    this.loading = true;
+    this.selfservice.getCompetencyClassList().subscribe(
       data => {
         this.loading = false;
-        this.competencytypes = JSON.parse(data.payload);
+        if (data.issuccessfull) {
+          this.competencytypes = JSON.parse(data.payload);
 
-        console.log(this.competencytypes);
+          console.log(this.competencytypes);
+        } else {
+          this.handleError(data.errorMsg);
+        }
       },
       error => {
-        this.alertService.error(error);
-        this.loading = false;
+        this.handleError(error);
       }
     );
   }
 
   onCompetencytypeSelected(selectedtype) {
+    //Set competency type
     this.loading = true;
-    //Fetch Competency Templates
-    this.competencyMeasurementService
-      .getSingleTemplate(selectedtype.description)
+    //Fetch Competency Items
+    this.selfservice.getCompetencyItemList(selectedtype.id).subscribe(
+      data => {
+        this.loading = false;
+        //Get competency items
+        if (data.issuccessfull) {
+          this.competencyitems = JSON.parse(data.payload);
+        } else {
+          this.handleError(data.errorMsg);
+        }
+      },
+      error => {
+        this.handleError(error);
+      }
+    );
+
+    //Fetch Action Plans
+    this.selfservice
+      .getCompetencyClassActionPlanDetails({
+        goalsettingformid: this.selfservice.goalsettingformid,
+        competencyclassid: selectedtype.id
+      })
       .subscribe(
         data => {
           this.loading = false;
-          //Get A full object of the template for the user and the user's action plans nested within it
-          this.defaultTemplate = JSON.parse(data.payload);
 
-          console.log(this.defaultTemplate);
+          if (data.issuccessfull) {
+            var goalsettingform = JSON.parse(data.payload);
+            this.actionplans = goalsettingform.lineitems;
+          } else {
+            this.handleError(data.errorMsg);
+          }
         },
         error => {
-          this.alertService.error(error);
-          this.loading = false;
+          this.handleError(error);
         }
       );
   } //onCompetencytypeSelected
 
+  onCompetencyItemSelected(selectedItem) {
+    this.postdata.selectedlineitemid = selectedItem.id;
+  } //onCompetencyItemSelected
+
   save() {
+    this.loading = true;
     if (!this.editMode) {
-      this.selfservice
-        .updateGoalsettingDetailActionplan(this.postdata)
-        .subscribe(
-          data => {
-            //Get back the update template struvture with action plan
-            this.defaultTemplate = JSON.parse(data.payload);
-            this.myActionPlan = "";
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
+      this.selfservice.saveGoalSettingActionPlan(this.postdata).subscribe(
+        data => {
+          this.loading = false;
+          if (data.issuccessfull) {
+            //Returns Goal Setting Form which Contains lineitems and other info
+            var goalsettingform = JSON.parse(data.payload);
+            this.actionplans = goalsettingform.lineitems;
+            this.postdata.actionplantext = "";
+          } else {
+            this.handleError(data.errorMsg);
           }
-        );
+        },
+        error => {
+          this.handleError(error);
+        }
+      );
     } else {
+      this.selectedActionPlan.actionplandescription = this.postdata.actionplantext;
       this.selfservice
         .updateGoalsettingDetailActionplan(this.postdata)
         .subscribe(
           data => {
-            //Get back the update template struvture with action plan
-            this.defaultTemplate = JSON.parse(data.payload);
-            this.editMode = false;
-            this.myActionPlan = "";
+            if (data.issuccessfull) {
+              //Returns Goal Setting Form which Contains lineitems and other info
+              var goalsettingform = JSON.parse(data.payload);
+              this.actionplans = goalsettingform.lineitems;
+              this.postdata.actionplantext = "";
+              this.editMode = false;
+            } else {
+              this.handleError(data.errorMsg);
+            }
           },
           error => {
-            this.alertService.error(error);
-            this.loading = false;
+            this.handleError(error);
           }
         );
     }
@@ -105,12 +148,19 @@ export class SetgoalsComponent implements OnInit {
     return _.find(this.defaultTemplate.lineitems, { id: competencyitemid });
   } //getCompetencyItem
 
-  onCompetencyItemSelected() {} //onCompetencytypeSelected
-
   edit(lineitem) {
     this.editMode = true;
 
-    this.selectedCompetencyItem = lineitem;
-    this.myActionPlan = lineitem.actionplandescription;
+    this.selectedActionPlan = lineitem;
+
+    this.selectedCompetencyItem = _.find(this.competencyitems, {
+      id: lineitem.competencyitemid
+    });
+    this.postdata.actionplantext = lineitem.actionplandescription;
   } //edit
+
+  handleError(error) {
+    this.alertService.error(error);
+    this.loading = false;
+  } //handleError
 }

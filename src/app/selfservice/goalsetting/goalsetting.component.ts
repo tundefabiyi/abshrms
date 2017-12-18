@@ -1,3 +1,4 @@
+import { SelfserviceService } from "./../selfservice.service";
 import { Component, OnInit } from "@angular/core";
 import { PMSParametersService } from "../../pmsparameters/pmsparameters.service";
 import { AlertService } from "../../services/alert.service";
@@ -23,6 +24,7 @@ export class GoalsettingComponent implements OnInit {
   constructor(
     private pmsservice: PMSParametersService,
     private performanceservice: PerformanceService,
+    private selfservice: SelfserviceService,
     private alertService: AlertService
   ) {}
 

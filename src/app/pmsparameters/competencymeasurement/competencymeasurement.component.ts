@@ -48,6 +48,7 @@ export class CompetencymeasurementComponent implements OnInit {
     this.loading = true;
     this.postdata.competencyclassid = selectedtype.id;
     //Fetch Competency Templates
+    console.log(selectedtype);
     this.competencyMeasurementService.fetchTemplates(selectedtype.id).subscribe(
       data => {
         if (data.issuccessfull) {
@@ -66,7 +67,7 @@ export class CompetencymeasurementComponent implements OnInit {
 
   save() {
     this.loading = true;
-
+    console.log(this.postdata);
     if (this.editMode) {
       //Update the description
       this.selectedTemplate.description = this.postdata.description;

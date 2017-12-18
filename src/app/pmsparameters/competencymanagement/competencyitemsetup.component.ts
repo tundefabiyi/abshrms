@@ -41,16 +41,16 @@ export class CompetencyItemSetupComponent implements OnInit {
   }
 
   onCompetencytypeSelected(selecteditem) {
-    this.postdata.competencytypeid = selecteditem.id;
+    this.postdata.competencytypeid = selecteditem.code;
     //  $event.preventDefault();
     this.loading = true;
 
     this.selectedcompetencyitem = _.find(this.competencytypelist, {
-      id: selecteditem.id
+      id: selecteditem.code
     });
 
     this.pMSParametersService
-      .fetchCompetencyItemList(selecteditem.id)
+      .fetchCompetencyItemList(selecteditem.code)
       .subscribe(
         data => {
           setTimeout(() => {
@@ -74,7 +74,9 @@ export class CompetencyItemSetupComponent implements OnInit {
           if (data.issuccessfull) {
             this.loading = false;
             this.data = JSON.parse(data.payload);
-            this.postdata = {};
+            this.postdata.code = "";
+            this.postdata.description = "";
+            this.postdata.percentage = "";
           } else {
             this.handleError(data.errormsg);
           }
@@ -92,7 +94,9 @@ export class CompetencyItemSetupComponent implements OnInit {
           if (data.issuccessfull) {
             this.loading = false;
             this.data = JSON.parse(data.payload);
-            this.postdata = {};
+            this.postdata.code = "";
+            this.postdata.description = "";
+            this.postdata.percentage = "";
           } else {
             this.handleError(data.errormsg);
           }

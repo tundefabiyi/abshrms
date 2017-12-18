@@ -10,8 +10,8 @@ export class PMSParametersService {
   constructor(private http: Http) {}
 
   getkpilist() {
-    //var url = `${webapibaseurl}pmsparameters/getkpilist?searchtext=`;
-    var url = "api/kpis";
+    var url = `${webapibaseurl}pmsparameters/getkpilist`;
+    //var url = "api/kpis";
     return this.http.get(url).map((response: Response) => response.json());
   }
 
@@ -22,12 +22,12 @@ export class PMSParametersService {
   }
 
   createkpi(kpi: any) {
-    //var url = `${webapibaseurl}pmsparameters/createkpi`;
-    var url = "api/kpis";
+    var url = `${webapibaseurl}pmsparameters/createKPI`;
+    //var url = "api/kpis";
     return this.http
       .post(url, kpi)
       .map((response: Response) => response.json());
-  }
+  } //createkpi
   updatekpi(kpi: any) {
     var url = `${webapibaseurl}pmsparameters/updatekpi`;
     return this.http
@@ -36,7 +36,7 @@ export class PMSParametersService {
   }
 
   getperformancecategories() {
-    var url = "api/performancecategories";
+    var url = `${webapibaseurl}pmsparameters/getperformancetypelist`;
     return this.http.get(url).map((response: Response) => response.json());
   } //getperformancecategories
 
@@ -60,7 +60,7 @@ export class PMSParametersService {
   }
 
   fetchCompetencyItemDetails() {
-    var url = `${webapibaseurl}pmsparameters/getCompetencyItemDetails`;
+    var url = `${webapibaseurl}pmsparameters/getCompetencyItemDetailList`;
     //var url = "api/competencyitemdetails";
     return this.http.get(url).map((response: Response) => {
       console.log(response.json());
@@ -84,6 +84,34 @@ export class PMSParametersService {
       .post(url, body)
       .map((response: Response) => response.json());
   }
+
+  submitCompetencyTemplate(templateid) {
+    var url = `${webapibaseurl}pmsparameters/submitCompetencyTemplate?templateid=${templateid}`;
+    //var url = "api/createcompetencyitem";
+    var body = {};
+    return this.http
+      .post(url, body)
+      .map((response: Response) => response.json());
+  } //submitCompetencyTemplate
+
+  approveCompetencyTemplate(templateid) {
+    var url = `${webapibaseurl}pmsparameters/approveCompetencyTemplate?templateid=${templateid}`;
+    //var url = "api/createcompetencyitem";
+    var body = {};
+    return this.http
+      .post(url, body)
+      .map((response: Response) => response.json());
+  } //approveCompetencyTemplate
+
+  returnCompetencyTemplate(templateid) {
+    var url = `${webapibaseurl}pmsparameters/returnCompetencyTemplate?templateid=${templateid}`;
+    //var url = "api/createcompetencyitem";
+    var body = {};
+    return this.http
+      .post(url, body)
+      .map((response: Response) => response.json());
+  } //returnCompetencyTemplate
+
   private jwt() {
     // create authorization header with jwt token
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -105,7 +133,7 @@ export class PMSParametersService {
   }
 
   getProficiencyTypes() {
-    var url = `${webapibaseurl}pmsparameters/getProficiencyLevelList`;
+    var url = `${webapibaseurl}competencytemplate/getProficiencyLevelList`;
     return this.http.get(url).map((response: Response) => response.json());
   }
 

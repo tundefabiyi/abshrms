@@ -1,3 +1,4 @@
+import { AppraisaltemplatesetupComponent } from "./appraisaltemplatesetup/appraisaltemplatesetup.component";
 import { FinalratingheadersetupComponent } from "./finalratingheadersetup/finalratingheadersetup.component";
 import { SetappraisalperiodComponent } from "./setappraisalperiod/setappraisalperiod.component";
 import { CompetencyratingsetupComponent } from "./competencyratingsetup/competencyratingsetup.component";
@@ -78,6 +79,10 @@ const appRoutes: Routes = [
       {
         path: "finalratingheadersetup",
         component: FinalratingheadersetupComponent
+      },
+      {
+        path: "appraisaltemplatesetup",
+        component: AppraisaltemplatesetupComponent
       },
       {
         path: "sample",

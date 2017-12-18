@@ -1,6 +1,3 @@
-
-
-
 <div class="box box-warning">
     <div class="box-header with-border">
         <h3 class="box-title">Key Performance Indicator Elements</h3>
@@ -11,12 +8,12 @@
             <!-- text input -->
             <div class="form-group">
                 <label>Description</label>
-                <input type="text" class="form-control" [(ngModel)]="kpidescriprion" name="kpidescriprion" placeholder="Enter ...">
+                <input type="text" class="form-control" [(ngModel)]="postdata.descriprion" name="kpidescriprion" placeholder="Enter ...">
             </div>
             <!-- textarea -->
             <div class="form-group">
                 <label>Computation Basis</label>
-                <textarea class="form-control" rows="3" [(ngModel)]="computationbasics" name="computationbasics" placeholder="Enter ..."></textarea>
+                <textarea class="form-control" rows="3" [(ngModel)]="postdata.computationbasis" name="computationbasics" placeholder="Enter ..."></textarea>
             </div>
             <button type="submit" (click)="savekpi()" class="btn btn-info pull-right fa-save">Sign in</button>
         </form>
@@ -61,7 +58,9 @@
                             <tr role="row" class="odd" *ngFor="let kpiitem of mf.data">
                                 <td class="sorting_1">{{kpiitem.description}}</td>
                                 <td>{{kpiitem.computationbasics}}</td>
-                                <td><button type="button" (click)="selectkpi(kpiitem)" class="btn btn-info btn-flat">...</button></td>
+                                <td>
+                                    <button type="button" (click)="selectkpi(kpiitem)" class="btn btn-info btn-flat">...</button>
+                                </td>
                             </tr>
 
                         </tbody>
@@ -80,4 +79,3 @@
     </div>
     <!-- /.box-body -->
 </div>
-

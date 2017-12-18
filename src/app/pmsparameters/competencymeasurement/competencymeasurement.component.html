@@ -10,8 +10,8 @@
 
       <div class="form-group">
         <label>Competency Type</label>
-        <select [(ngModel)]="postdata.competencyclassid" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)"
-          class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+        <select [(ngModel)]="competencytype" name="competencytype" (ngModelChange)="onCompetencytypeSelected($event)" class="form-control select2 select2-hidden-accessible"
+          style="width: 100%;" tabindex="-1" aria-hidden="true" required>
           <option *ngFor="let competencytypeitem of competencytypes" [ngValue]="competencytypeitem">{{competencytypeitem.description}}</option>
 
         </select>
@@ -69,7 +69,7 @@
             <tbody>
               <tr role="row" class="odd" *ngFor="let item of competencytemplates">
                 <td>{{item.description }}</td>
-                <td>{{item.status }}</td>
+                <td>{{item.documentstatus }}</td>
 
                 <td>
                   <button type="button" (click)="edit(item)" class="btn btn-info btn-flat">Edit</button>

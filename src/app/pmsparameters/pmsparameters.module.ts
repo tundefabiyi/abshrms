@@ -32,6 +32,7 @@ import { PerformancescalesetupComponent } from './performancescalesetup/performa
 import { CompetencyratingsetupComponent } from './competencyratingsetup/competencyratingsetup.component';
 import { SetappraisalperiodComponent } from './setappraisalperiod/setappraisalperiod.component';
 import { FinalratingheadersetupComponent } from './finalratingheadersetup/finalratingheadersetup.component';
+import { AppraisaltemplatesetupComponent } from './appraisaltemplatesetup/appraisaltemplatesetup.component';
 
 @NgModule({
   imports: [
@@ -63,7 +64,8 @@ import { FinalratingheadersetupComponent } from './finalratingheadersetup/finalr
     PerformancescalesetupComponent,
     CompetencyratingsetupComponent,
     SetappraisalperiodComponent,
-    FinalratingheadersetupComponent
+    FinalratingheadersetupComponent,
+    AppraisaltemplatesetupComponent
   ],
   providers: [
     AuthGuard,

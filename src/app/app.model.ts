@@ -1,1 +1,1 @@
-export const webapibaseurl = "http://localhost:1167/api/";
+export const webapibaseurl = "http://bjcreatives:9012/api/";

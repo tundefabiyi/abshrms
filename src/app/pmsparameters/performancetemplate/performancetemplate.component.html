@@ -13,9 +13,9 @@
           <label>Performance Type</label>
           <select [(ngModel)]="selectedPerformanceCategory" name="performancecategory" (ngModelChange)="onPerformanceCategorySelected($event)"
             class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-          <option *ngFor="let item of performancecategories" [ngValue]="item" >{{item.description}}</option>
-         
-        </select>
+            <option *ngFor="let item of performancecategories" [ngValue]="item">{{item.description}}</option>
+
+          </select>
 
           <label>Description</label>
           <input type="text" [(ngModel)]="templateDescription" name="templateDescription" class="form-control" id="exampleInputText1"
@@ -26,7 +26,7 @@
         </div>
         <div class="box-footer">
           <button (click)="save()" class="btn btn-app" style="background-color:dodgerblue;color:white;">
-                 <i class="fa fa-save"></i> Save
+            <i class="fa fa-save"></i> Save
           </button>
         </div>
 
@@ -57,6 +57,7 @@
       <th>Description</th>
       <th>Status</th>
       <th>&nbsp;</th>
+      <th>&nbsp;</th>
     </tr>
     <tr style=" border:1px;" *ngFor="let item of performancetemplates">
 
@@ -65,8 +66,12 @@
       <td>{{item.description}}</td>
       <td>{{item.status}}</td>
 
-
-      <td> <button type="button" (click)="manage(item)" class="btn btn-info pull-right fa-save">Manage</button></td>
+      <td>
+        <button type="button" (click)="edit(item)" class="btn btn-success pull-right fa-save">Edit</button>
+      </td>
+      <td>
+        <button type="button" (click)="manage(item)" class="btn btn-info pull-right fa-save">Manage</button>
+      </td>
     </tr>
     <tr>
 

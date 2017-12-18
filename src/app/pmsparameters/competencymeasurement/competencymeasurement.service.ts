@@ -6,12 +6,12 @@ import { Http, Headers, RequestOptions, Response } from "@angular/http";
 export class CompetencymeasurementService {
   public selectedTemplate;
   public selectedLineitem;
-  private Url = `${webapibaseurl}pmsparameters/`;
+  private Url = `${webapibaseurl}competencytemplate/`;
   private headers = new Headers({ "Content-Type": "application/json" });
   constructor(private http: Http) {}
 
   fetchCompetencyClassList() {
-    var url = `${webapibaseurl}pmsparameters/getCompetencyClassList`;
+    var url = `${this.Url}getCompetencyClassList`;
     //var url = "api/competencytypes";
     return this.http.get(url).map((response: Response) => {
       console.log(response.json());
@@ -21,7 +21,9 @@ export class CompetencymeasurementService {
   }
 
   fetchTemplates(competencytypeid: any) {
-    var url = `${webapibaseurl}pmsparameters/getCompetencyTemplateList?competencyclassid=${competencytypeid}`;
+    var url = `${
+      this.Url
+    }getCompetencyTemplateList?competencyclassid=${competencytypeid}`;
     return this.http.get(url).map((response: Response) => {
       console.log(response.json());
       return response.json();
@@ -39,14 +41,16 @@ export class CompetencymeasurementService {
   } //getSingleTemplate
 
   create(template: any) {
-    return this.http.post(this.Url, template).map((response: Response) => {
+    let url = `${webapibaseurl}competencytemplate/createcompetencytemplate`;
+    return this.http.post(url, template).map((response: Response) => {
       console.log(response.json());
       return response.json();
     });
   }
 
   update(template: any) {
-    return this.http.put(this.Url, template).map((response: Response) => {
+    let url = `${webapibaseurl}competencytemplate/updatecompetencytemplate`;
+    return this.http.put(url, template).map((response: Response) => {
       console.log(response.json());
       return response.json();
     });
@@ -61,7 +65,7 @@ export class CompetencymeasurementService {
   } //updateSingleTemplateLineitem
 
   createCompetencyLineItem(lineitem: any) {
-    var url = this.Url + "createCompetencyLineItem";
+    var url = this.Url + "createCompetencyTemplateLineItem";
     return this.http.post(url, lineitem).map((response: Response) => {
       console.log(response.json());
       return response.json();

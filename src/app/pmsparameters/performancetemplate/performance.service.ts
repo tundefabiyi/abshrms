@@ -1,3 +1,4 @@
+import { webapibaseurl } from "./../../app.model";
 import { Injectable } from "@angular/core";
 import { Http, Headers, RequestOptions, Response } from "@angular/http";
 
@@ -8,29 +9,41 @@ export class PerformanceService {
   performancecategories: any[];
   constructor(private http: Http) {}
 
-  gettemplates(performancetypeid) {
-    var url = this.templatesUrl + `?performancetypeid=${performancetypeid}`;
+  getPerformanceTemplateList(performancetypeid) {
+    var url = `${webapibaseurl}pmsparameters/getPerformanceTemplateList?performancetypeid=${performancetypeid}`;
     return this.http.get(url).map((response: Response) => {
       console.log(response.json());
 
       return response.json();
     });
-  } //getperformancetemplates
+  } //getPerformanceTemplateList
 
-  saveTemplate(template: any) {
+  createPerformanceTemplate(template: any) {
+    var url = `${webapibaseurl}pmsparameters/createperformancetemplate`;
     return this.http
-      .post(this.templatesUrl, template)
+      .post(url, template)
       .map((response: Response) => response.json());
   } //saveTemplate
 
-  updateTemplate(update: any) {
+  updatePerformanceTemplate(update: any) {
+    var url = `${webapibaseurl}pmsparameters/updateperformancetemplate`;
     return this.http
-      .put(this.templatesUrl, update)
+      .post(this.templatesUrl, update)
       .map((response: Response) => {
         console.log(response.json());
         return response.json();
       });
   } //updatePerformanceTemplate
+
+  createPerformanceTemplateLineItem(lineitem: any) {
+    var url = `${webapibaseurl}pmsparameters/createPerformanceTemplateLineItem`;
+    return this.http
+      .post(this.templatesUrl, lineitem)
+      .map((response: Response) => {
+        console.log(response.json());
+        return response.json();
+      });
+  } //createPerformanceTemplateLineItem
 
   gettemplate(performancetypeid) {
     var rootUrl = "api/getcurrentperformancetemplate";

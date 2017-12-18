@@ -33,8 +33,10 @@ export class LineitemssetupComponent implements OnInit {
 
   ngOnInit() {
     //Fetch the Competency Items
+    console.log(this.competencyTemplate);
+
     this.pMSParametersService
-      .fetchCompetencyItemList(this.competencyTemplate.id)
+      .fetchCompetencyItemList(this.competencyTemplate.competencyclassid)
       .subscribe(
         data => {
           this.loading = false;
@@ -78,6 +80,7 @@ export class LineitemssetupComponent implements OnInit {
   } //onProficiencytypeSelected
 
   save() {
+    this.postdata.competencytemplateid = this.competencyTemplate.id;
     this.loading = true;
     if (!this.editMode) {
       //Create New

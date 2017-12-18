@@ -1,18 +1,90 @@
+import { webapibaseurl } from "./../app.model";
 import { Http, Response } from "@angular/http";
 import { Injectable } from "@angular/core";
 
 @Injectable()
 export class SelfserviceService {
   selectedSubordinate;
-  actionsUrl = "api/goalsettingdetailactionplan";
+  goalsettingformid;
+  actionsUrl = `${webapibaseurl}api/selfservice/`;
   constructor(private http: Http) {}
+
+  getSelfserviceHome(employeeid: any) {
+    var url = this.actionsUrl + `getSelfServiceHome?employeeid=${employeeid}`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getSelfserviceHome
+
+  getSubordinateSelfServiceHome(subordinateemployeeid: any) {
+    var url =
+      this.actionsUrl +
+      `getSubordinateSelfServiceHome?subordinateemployeeid=${subordinateemployeeid}`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getSubordinateSelfServiceHome
 
   //Action Plans/Goals
 
-  saveGoalsettingDetailActionplan(actionplan) {
+  startGoalsettingActionplan(employeeid) {
+    var url = `${this.actionsUrl}startGoalsettingActionplan`;
     return this.http
-      .post(this.actionsUrl, actionplan)
-      .map((response: Response) => response.json().data);
+      .post(url, { employeeid: employeeid })
+      .map((response: Response) => response.json());
+  } //startGoalsettingActionplan
+
+  getCompetencyClassList() {
+    var url = `${this.actionsUrl}getCompetencyClassList`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getCompetencyClassList
+
+  getCompetencyItemList(competencytypeid) {
+    var url = `${
+      this.actionsUrl
+    }getCompetencyItemList?competencytypeid=${competencytypeid}`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getCompetencyItemList
+
+  getCompetencyItemDetail(goalsettingformid) {
+    var url = `${
+      this.actionsUrl
+    }getCompetencyItemDetail?goalsettingformid=${goalsettingformid}`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getCompetencyItemDetail
+
+  getCompetencyClassActionPlanDetails(competencytypeid) {
+    var url = `${
+      this.actionsUrl
+    }getCompetencyClassActionPlanDetails?competencytypeid=${competencytypeid}`;
+    return this.http.get(url).map((response: Response) => {
+      console.log(response.json());
+
+      return response.json();
+    });
+  } //getCompetencyClassActionPlanDetails
+
+  saveGoalSettingActionPlan(actionplan) {
+    var url = `${this.actionsUrl}saveGoalSettingActionPlan`;
+    return this.http
+      .post(url, actionplan)
+      .map((response: Response) => response.json());
   }
 
   updateGoalsettingDetailActionplan(update: any) {
